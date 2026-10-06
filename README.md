@@ -1,36 +1,77 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Medical Marijuana Card Santa Ana
+
+Next.js migration of the Santa Ana medical marijuana card website, rebuilt from WordPress with a modern design system, API forms, and technical SEO foundation.
+
+## Stack
+
+- **Next.js 16** (App Router)
+- **TypeScript**
+- **Tailwind CSS v4**
+- **Zod** for form validation
 
 ## Getting Started
 
-First, run the development server:
-
 ```bash
+npm install
+cp .env.example .env.local
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Open [http://localhost:3000](http://localhost:3000).
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Project Structure
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+```
+src/
+├── app/                  # Routes, API, SEO (sitemap, robots)
+├── components/
+│   ├── ui/               # Reusable primitives (Button, Input, Card…)
+│   ├── layout/           # Header, Footer
+│   ├── sections/         # Homepage sections
+│   ├── forms/            # Application & contact forms
+│   └── seo/              # JSON-LD structured data
+├── data/                 # Content & configuration
+├── tokens/               # Design tokens (typography, breakpoints, colors)
+├── lib/                  # Utilities, SEO helpers, validation
+└── types/                # Shared TypeScript types
+```
 
-## Learn More
+## Design Tokens
 
-To learn more about Next.js, take a look at the following resources:
+| Token file | Purpose |
+|---|---|
+| `tokens/typography.ts` | Font families, sizes, semantic text styles |
+| `tokens/breakpoints.ts` | Responsive breakpoints (xs → 2xl) |
+| `tokens/colors.ts` | Brand (teal) + accent (coral) palette |
+| `tokens/spacing.ts` | Section spacing, container widths, radius |
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+Theme colors are also defined as CSS custom properties in `globals.css` and mapped to Tailwind via `@theme inline`.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+## Lead Form (Heally Redirect)
 
-## Deploy on Vercel
+The homepage telehealth form matches the [mmjcalifornia](https://github.com/princsharma/mmjcalifornia) flow:
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+1. Client-side validation (name, email, phone, checkboxes)
+2. GTM event `heallyValidatedSubmit` (when `NEXT_PUBLIC_GTM_ID` is set)
+3. Redirect to Heally prefill URL with query params:
+   - `redirect=sched`
+   - `preset` — base64url-encoded patient payload
+   - `utm_source` — `utm_{your-site-domain}`
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+Logic lives in `src/lib/heally.ts` and `src/components/forms/LeadCaptureForm.tsx`.
+
+## SEO
+
+- Per-page metadata via `buildMetadata()` helper
+- `sitemap.xml` and `robots.txt` auto-generated
+- Organization + FAQ JSON-LD structured data
+- Canonical URLs, Open Graph, and Twitter cards
+
+## Scripts
+
+```bash
+npm run dev      # Development server
+npm run build    # Production build
+npm run start    # Start production server
+npm run lint     # ESLint
+```

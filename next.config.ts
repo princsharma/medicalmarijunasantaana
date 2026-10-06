@@ -1,7 +1,8 @@
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
-  /* config options here */
+  /** Keep one indexable URL shape: no trailing slashes on routes. */
+  trailingSlash: false,
 };
 
 export default nextConfig;

@@ -1,69 +1,108 @@
-import Image from "next/image";
+import dynamic from "next/dynamic";
 
-export default function Home() {
+import { HeroSection } from "@/components/sections/HeroSection";
+import { TrustMarquee } from "@/components/sections/TrustMarquee";
+import { faqItems, processSteps } from "@/data/homepage";
+import { buildMetadata } from "@/lib/seo";
+
+const PAGE_TITLE = "How to Get a Medical Marijuana Card in Santa Ana, California";
+const PAGE_DESCRIPTION =
+  "Apply for your medical marijuana card in Santa Ana online from licensed doctors. Same-day telehealth evaluation, plans from $55, money-back guarantee.";
+
+export const metadata = buildMetadata({
+  title: PAGE_TITLE,
+  description: PAGE_DESCRIPTION,
+  path: "/",
+  absoluteTitle: true,
+});
+
+const ProcessSection = dynamic(() =>
+  import("@/components/sections/ProcessSection").then((m) => m.ProcessSection)
+);
+const TelehealthSection = dynamic(() =>
+  import("@/components/sections/TelehealthSection").then((m) => m.TelehealthSection)
+);
+const BenefitsSection = dynamic(() =>
+  import("@/components/sections/BenefitsSection").then((m) => m.BenefitsSection)
+);
+const ConditionsSection = dynamic(() =>
+  import("@/components/sections/ConditionsSection").then((m) => m.ConditionsSection)
+);
+const PricingSection = dynamic(() =>
+  import("@/components/sections/PricingSection").then((m) => m.PricingSection)
+);
+const TrustSection = dynamic(() =>
+  import("@/components/sections/TrustSection").then((m) => m.TrustSection)
+);
+// const ServiceAreasSection = dynamic(() =>
+//   import("@/components/sections/ServiceAreasSection").then((m) => m.ServiceAreasSection)
+// );
+const ReviewsSection = dynamic(() =>
+  import("@/components/sections/ReviewsSection").then((m) => m.ReviewsSection)
+);
+const FaqSection = dynamic(() =>
+  import("@/components/sections/FaqSection").then((m) => m.FaqSection)
+);
+const CtaSection = dynamic(() =>
+  import("@/components/sections/CtaSection").then((m) => m.CtaSection)
+);
+
+// Mirrors the exact `faqItems` data FaqSection renders, so the schema
+// can never drift from what's actually visible on the page.
+const faqJsonLd = {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  mainEntity: faqItems.map((faq) => ({
+    "@type": "Question",
+    name: faq.question,
+    acceptedAnswer: {
+      "@type": "Answer",
+      text: faq.answer,
+    },
+  })),
+};
+
+// Mirrors the exact `processSteps` data ProcessSection renders, same
+// drift-proofing principle as the FAQ schema above.
+const howToJsonLd = {
+  "@context": "https://schema.org",
+  "@type": "HowTo",
+  name: "How to Get a Medical Marijuana Card in Santa Ana",
+  step: processSteps.map((step) => ({
+    "@type": "HowToStep",
+    position: step.step,
+    name: step.title,
+    text: step.description,
+  })),
+};
+
+export default function HomePage() {
   return (
-    <div className="flex flex-col flex-1 items-center justify-center bg-zinc-50 font-sans dark:bg-black">
-      <main className="flex flex-1 w-full max-w-3xl flex-col items-center justify-between py-32 px-16 bg-white dark:bg-black sm:items-start">
-        <Image
-          className="dark:invert h-5 w-[100px]"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={100}
-          height={20}
-          priority
-        />
-        <div className="flex flex-col items-center gap-6 text-center sm:items-start sm:text-left">
-          <h1 className="max-w-xs text-3xl font-semibold leading-10 tracking-tight text-black dark:text-zinc-50">
-            To get started, edit the{" "}
-            <code className="rounded bg-black/[.06] px-1.5 py-0.5 font-mono text-[0.9em] dark:bg-white/[.08]">
-              page.tsx
-            </code>{" "}
-            file.
-          </h1>
-          <p className="max-w-md text-lg leading-8 text-zinc-600 dark:text-zinc-400">
-            Looking for a starting point or more instructions? Head over to{" "}
-            <a
-              href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Templates
-            </a>{" "}
-            or the{" "}
-            <a
-              href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Learning
-            </a>{" "}
-            center.
-          </p>
-        </div>
-        <div className="flex flex-col gap-4 text-base font-medium sm:flex-row">
-          <a
-            className="flex h-12 w-full items-center justify-center gap-2 rounded-full bg-foreground px-5 text-background transition-colors hover:bg-[#383838] dark:hover:bg-[#ccc] md:w-[158px]"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert h-[14px] w-4"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={16}
-              height={14}
-            />
-            Deploy Now
-          </a>
-          <a
-            className="flex h-12 w-full items-center justify-center rounded-full border border-solid border-black/[.08] px-5 transition-colors hover:border-transparent hover:bg-black/[.04] dark:border-white/[.145] dark:hover:bg-[#1a1a1a] md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Documentation
-          </a>
-        </div>
-      </main>
-    </div>
+    <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify(faqJsonLd).replace(/</g, "\\u003c"),
+        }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify(howToJsonLd).replace(/</g, "\\u003c"),
+        }}
+      />
+      <HeroSection />
+      {/* <TrustMarquee /> */}
+      <ProcessSection />
+      {/* <TelehealthSection /> */}
+      <BenefitsSection />
+      <ConditionsSection />
+      <PricingSection />
+      <TrustSection />
+      {/* <ServiceAreasSection /> */}
+      <ReviewsSection />
+      <FaqSection />
+      <CtaSection />
+    </>
   );
 }
