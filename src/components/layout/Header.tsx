@@ -148,7 +148,7 @@ export function Header() {
                 : isRouteActive(pathname, item.href);
 
               const linkClass = cn(
-                "relative rounded-full px-3.5 py-2 text-sm font-medium transition-colors xl:px-4",
+                "relative rounded-full px-3.5 py-2 text-base font-medium transition-colors xl:px-4",
                 isActive
                   ? "text-white"
                   : "text-white/80 hover:bg-white/5 hover:text-white"
@@ -230,7 +230,7 @@ export function Header() {
                 : isRouteActive(pathname, item.href);
 
               const linkClass = cn(
-                "flex items-center justify-between rounded-2xl border px-4 py-3.5 text-sm font-semibold transition-all",
+                "flex items-center justify-between rounded-2xl border px-4 py-3.5 text-base font-semibold transition-all",
                 isActive
                   ? "border-brand-400/30 bg-brand-500/15 text-white"
                   : "border-white/10 bg-white/5 text-white/90 hover:border-white/20 hover:bg-white/10"
