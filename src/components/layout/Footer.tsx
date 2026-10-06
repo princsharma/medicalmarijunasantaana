@@ -1,3 +1,4 @@
+import Image from "next/image";
 import Link from "next/link";
 import {
   ArrowUpRight,
@@ -95,20 +96,17 @@ export function Footer() {
             <div className="lg:col-span-7 xl:col-span-6">
               <Link
                 href="/"
-                className="group inline-flex items-center gap-3"
+                className="group inline-flex items-center"
                 aria-label={`${siteConfig.name} home`}
               >
-                <span className="flex size-11 items-center justify-center rounded-2xl bg-gradient-to-br from-brand-500 to-brand-700 text-sm font-bold text-white shadow-lg shadow-brand-900/40 transition-transform duration-300 group-hover:scale-105">
-                  MMJ
-                </span>
-                <div>
-                  <span className="block font-display text-lg font-bold leading-tight text-white sm:text-xl">
-                    {siteConfig.shortName}
-                  </span>
-                  <span className="text-xs font-medium text-brand-300/90 sm:text-sm">
-                    Santa Ana, California
-                  </span>
-                </div>
+                <Image
+                  src="/brand-logo-light.webp"
+                  alt="Medical Marijuana Santa Ana"
+                  width={1917}
+                  height={368}
+                  className="h-auto w-56 sm:w-64"
+                  sizes="(max-width: 640px) 224px, 256px"
+                />
               </Link>
 
               <p className="mt-5 max-w-lg text-sm leading-relaxed text-brand-100/75 sm:text-[0.9375rem]">

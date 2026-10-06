@@ -18,7 +18,7 @@ export function HeroSection() {
       <Container className="relative py-16 md:py-24 lg:py-28">
         <div className="grid items-center gap-12 lg:grid-cols-2 lg:gap-16 xl:gap-20">
           {/* Visual */}
-          <div className="animate-fade-up relative lg:pr-4" style={{ animationDelay: "0.12s" }}>
+          <div className="animate-fade-up relative lg:pr-4">
             <HeroDoctorVisual />
           </div>
 

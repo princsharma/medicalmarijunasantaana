@@ -139,15 +139,15 @@ export function BenefitsSection() {
                 <article
                   className={cn(
                     cardHover,
-                    "relative overflow-hidden rounded-[1.35rem] border border-brand-200/70 bg-white p-6 shadow-card sm:rounded-2xl sm:p-7"
+                    "relative overflow-hidden rounded-[1.35rem] border border-accent-200/70 bg-white p-6 shadow-card sm:rounded-2xl sm:p-7"
                   )}
                 >
                   <CardShine />
-                  <div className="absolute inset-x-0 top-0 h-1 bg-gradient-to-r from-brand-500 to-brand-700" />
-                  <span className="flex size-12 items-center justify-center rounded-2xl bg-gradient-to-br from-brand-500 to-brand-700 text-white shadow-lg shadow-brand-600/25 transition-transform duration-500 group-hover:scale-105">
+                  <div className="absolute inset-x-0 top-0 h-1 bg-gradient-to-r from-accent-400 to-accent-600" />
+                  <span className="flex size-12 items-center justify-center rounded-2xl bg-gradient-to-br from-accent-500 to-accent-600 text-white shadow-lg shadow-accent-500/25 transition-transform duration-500 group-hover:scale-105">
                     <Scale className="size-5" />
                   </span>
-                  <p className="stat-value mt-5 font-display text-3xl font-extrabold tracking-tight text-brand-900 sm:text-4xl">
+                  <p className="stat-value mt-5 font-display text-3xl font-extrabold tracking-tight text-accent-700 sm:text-4xl">
                     {possession.stat}
                   </p>
                   <h3 className="mt-2 font-display text-lg font-bold text-neutral-900">
@@ -177,15 +177,15 @@ export function BenefitsSection() {
                 <article
                   className={cn(
                     cardHover,
-                    "relative overflow-hidden rounded-[1.35rem] border border-accent-200/70 bg-white p-6 shadow-card sm:rounded-2xl sm:p-7"
+                    "relative overflow-hidden rounded-[1.35rem] border border-brand-200/70 bg-white p-6 shadow-card sm:rounded-2xl sm:p-7"
                   )}
                 >
                   <CardShine />
-                  <div className="absolute inset-x-0 top-0 h-1 bg-gradient-to-r from-accent-400 to-accent-600" />
-                  <span className="flex size-12 items-center justify-center rounded-2xl bg-gradient-to-br from-accent-500 to-accent-600 text-white shadow-lg shadow-accent-500/25 transition-transform duration-500 group-hover:scale-105">
+                  <div className="absolute inset-x-0 top-0 h-1 bg-gradient-to-r from-brand-500 to-brand-700" />
+                  <span className="flex size-12 items-center justify-center rounded-2xl bg-gradient-to-br from-brand-500 to-brand-700 text-white shadow-lg shadow-brand-600/25 transition-transform duration-500 group-hover:scale-105">
                     <Sprout className="size-5" />
                   </span>
-                  <p className="stat-value mt-5 font-display text-3xl font-extrabold tracking-tight text-accent-700 sm:text-4xl">
+                  <p className="stat-value mt-5 font-display text-3xl font-extrabold tracking-tight text-brand-900 sm:text-4xl">
                     {cultivation.stat}
                   </p>
                   <h3 className="mt-2 font-display text-lg font-bold text-neutral-900">

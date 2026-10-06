@@ -21,7 +21,6 @@ export function FaqSection() {
       <Container className="relative">
         <div className="rounded-[2rem] bg-gradient-to-br from-brand-200/40 via-white/90 to-accent-200/30 p-[1px] shadow-elevated md:rounded-[2.5rem]">
           <div className="rounded-[calc(2rem-1px)] bg-gradient-to-br from-[#FAFDFC] via-white to-[#FAFAF7] p-6 sm:p-8 md:p-10 lg:p-12 md:rounded-[calc(2.5rem-1px)]">
-            {/* Header */}
             <div className="mx-auto max-w-3xl text-center">
               <span className="inline-flex items-center gap-2 rounded-full border border-brand-200/70 bg-white/90 px-4 py-2 text-xs font-bold uppercase tracking-wider text-brand-800 shadow-sm">
                 <span className="relative flex size-1.5">
@@ -41,12 +40,10 @@ export function FaqSection() {
               </p>
             </div>
 
-            {/* Interactive FAQ panel */}
             <div className="mt-12 md:mt-14">
-              <FaqInteractivePanel showViewAllLink />
+              <FaqInteractivePanel />
             </div>
 
-            {/* Bottom CTA strip */}
             <div className="mt-10 flex flex-col items-center justify-between gap-4 rounded-2xl border border-brand-200/60 bg-gradient-to-r from-brand-50/50 via-white to-accent-50/30 px-5 py-5 text-center sm:flex-row sm:text-left sm:px-6 md:mt-12">
               <div className="flex items-center gap-4">
                 <span className="flex size-11 shrink-0 items-center justify-center rounded-2xl bg-brand-100 text-brand-700 ring-1 ring-brand-200/80">
@@ -54,10 +51,8 @@ export function FaqSection() {
                 </span>
                 <div>
                   <p className="font-display text-base font-bold text-neutral-900 sm:text-lg">
-                   
                     Ready to get started?
                   </p>
-                  
                   <p className="text-sm text-neutral-600">
                     All your questions answered — start your application in minutes.
                   </p>

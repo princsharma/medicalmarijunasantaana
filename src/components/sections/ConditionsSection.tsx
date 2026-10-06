@@ -79,9 +79,8 @@ export function ConditionsSection() {
       <Container className="relative">
         <div className="rounded-[2rem] bg-gradient-to-br from-brand-200/40 via-white/90 to-accent-200/30 p-[1px] shadow-elevated md:rounded-[2.5rem]">
           <div className="overflow-hidden rounded-[calc(2rem-1px)] bg-gradient-to-br from-[#FAFDFC] via-white to-[#FAFAF7] p-6 sm:p-8 md:p-10 lg:p-12 md:rounded-[calc(2.5rem-1px)]">
-            <div className="grid items-start gap-10 lg:grid-cols-[minmax(0,36%)_minmax(0,64%)] lg:gap-14 xl:gap-16">
-              {/* Left — intro */}
-              <div className="lg:sticky lg:top-28">
+            <div className="mx-auto max-w-4xl text-center">
+              <div className="flex justify-center">
                 <span className="inline-flex items-center gap-2.5 rounded-full border border-brand-200/70 bg-white/90 px-4 py-2 text-xs font-bold uppercase tracking-wider text-brand-800 shadow-sm">
                   <span className="relative flex size-1.5">
                     <span className="absolute inline-flex size-full animate-ping rounded-full bg-brand-400 opacity-60" />
@@ -90,107 +89,106 @@ export function ConditionsSection() {
                   <Sparkles className="size-3.5 text-brand-600" />
                   {conditionsSectionContent.badge}
                 </span>
-
-                <h2 className="section-heading mt-5 text-neutral-900">
-                  {conditionsSectionContent.title.replace("Santa Ana", "")}
-                  <span className="text-gradient-brand">Santa Ana</span>
-                </h2>
-
-                <p className="mt-4 border-l-[3px] border-brand-300/70 pl-5 text-base leading-relaxed text-neutral-600">
-                  {conditionsSectionContent.description}
-                </p>
-
-                <div className="relative mt-8 overflow-hidden rounded-2xl border border-brand-200/60 bg-gradient-to-br from-brand-50/80 via-white to-white p-6 shadow-soft md:p-7">
-                  <div className="absolute inset-x-0 top-0 h-1 bg-gradient-to-r from-brand-500 to-accent-500" />
-                  <div className="pointer-events-none absolute -right-8 -top-8 size-32 rounded-full bg-brand-100/50 blur-2xl" />
-
-                  <span className="relative flex size-11 items-center justify-center rounded-2xl bg-gradient-to-br from-brand-600 to-brand-800 text-white shadow-lg shadow-brand-700/25">
-                    <Info className="size-5" />
-                  </span>
-                  <p className="relative mt-4 text-sm leading-relaxed text-neutral-700">
-                    {conditionsSectionContent.infoCard}
-                  </p>
-                  <div className="relative mt-6">
-                    <Button href="#apply" size="lg" className="w-full sm:w-auto sm:min-w-[200px]">
-                      {conditionsSectionContent.cta}
-                    </Button>
-                  </div>
-                </div>
               </div>
 
-              {/* Right — conditions grid */}
-              <div>
-                <div className="mb-5 flex flex-wrap items-center justify-between gap-3 rounded-2xl border border-neutral-200/60 bg-white/80 px-5 py-4 shadow-soft backdrop-blur-sm sm:px-6">
-                  <p className="text-xs font-bold uppercase tracking-widest text-brand-800">
-                    Covered conditions
-                  </p>
-                  <span className="stat-value rounded-full bg-brand-100 px-3 py-1 text-[11px] font-bold text-brand-800 ring-1 ring-brand-200/80">
-                    {qualifyingConditions.length} listed
-                  </span>
-                </div>
+              <h2 className="section-heading mt-5 text-neutral-900">
+                {conditionsSectionContent.title.replace("Santa Ana", "")}
+                <span className="text-gradient-brand">Santa Ana</span>
+              </h2>
 
-                <div className="grid grid-cols-1 gap-3 sm:grid-cols-2 sm:gap-4">
-                  {qualifyingConditions.map((condition, index) => {
-                    const Icon = conditionIcons[condition] ?? Stethoscope;
-                    const theme = conditionThemes[index % conditionThemes.length];
+              <p className="mx-auto mt-4 max-w-3xl text-base leading-relaxed text-neutral-600 sm:text-lg">
+                {conditionsSectionContent.description}
+              </p>
+            </div>
 
-                    return (
-                      <article
-                        key={condition}
+            <div className="mt-10 md:mt-12">
+              <div className="mb-5 flex flex-wrap items-center justify-between gap-3 rounded-2xl border border-neutral-200/60 bg-white/80 px-5 py-4 shadow-soft backdrop-blur-sm sm:px-6">
+                <p className="text-xs font-bold uppercase tracking-widest text-brand-800">
+                  Covered conditions
+                </p>
+                <span className="stat-value rounded-full bg-brand-100 px-3 py-1 text-[11px] font-bold text-brand-800 ring-1 ring-brand-200/80">
+                  {qualifyingConditions.length} listed
+                </span>
+              </div>
+
+              <div className="grid grid-cols-1 gap-3 sm:grid-cols-2 sm:gap-4 md:grid-cols-3">
+                {qualifyingConditions.map((condition, index) => {
+                  const Icon = conditionIcons[condition] ?? Stethoscope;
+                  const theme = conditionThemes[index % conditionThemes.length];
+
+                  return (
+                    <article
+                      key={condition}
+                      className={cn(
+                        "group relative h-full overflow-hidden rounded-2xl border bg-gradient-to-br p-[1px] shadow-sm transition-all duration-300 hover:-translate-y-0.5 hover:shadow-md",
+                        theme.border
+                      )}
+                    >
+                      <div
                         className={cn(
-                          "group relative overflow-hidden rounded-2xl border bg-gradient-to-br p-[1px] shadow-sm transition-all duration-300 hover:-translate-y-0.5 hover:shadow-md",
-                          theme.border
+                          "relative flex h-full min-h-24 items-center gap-3.5 overflow-hidden rounded-[calc(1rem-1px)] bg-gradient-to-br p-4 sm:gap-4 sm:p-5",
+                          theme.surface
                         )}
                       >
+                        <CardShine />
                         <div
                           className={cn(
-                            "relative flex items-center gap-3.5 overflow-hidden rounded-[calc(1rem-1px)] bg-gradient-to-br p-4 sm:gap-4 sm:p-5",
-                            theme.surface
+                            "absolute inset-x-0 top-0 h-0.5 bg-gradient-to-r opacity-80",
+                            theme.bar
+                          )}
+                        />
+
+                        <span
+                          className={cn(
+                            "relative flex size-11 shrink-0 items-center justify-center rounded-xl bg-gradient-to-br text-white shadow-md transition-transform duration-300 group-hover:scale-105",
+                            theme.icon
                           )}
                         >
-                          <CardShine />
-                          <div
-                            className={cn(
-                              "absolute inset-x-0 top-0 h-0.5 bg-gradient-to-r opacity-80",
-                              theme.bar
-                            )}
-                          />
+                          <Icon className="size-5" strokeWidth={2.25} />
+                        </span>
 
+                        <div className="min-w-0 flex-1">
+                          <h3 className="font-display text-sm font-bold leading-snug text-neutral-900 sm:text-base">
+                            {condition}
+                          </h3>
                           <span
                             className={cn(
-                              "relative flex size-11 shrink-0 items-center justify-center rounded-xl bg-gradient-to-br text-white shadow-md transition-transform duration-300 group-hover:scale-105",
-                              theme.icon
+                              "mt-1.5 inline-flex items-center gap-1 rounded-full px-2 py-0.5 text-[10px] font-bold uppercase tracking-wide ring-1",
+                              theme.chip
                             )}
                           >
-                            <Icon className="size-5" strokeWidth={2.25} />
-                          </span>
-
-                          <div className="min-w-0 flex-1">
-                            <h3 className="font-display text-sm font-bold leading-snug text-neutral-900 sm:text-base">
-                              {condition}
-                            </h3>
-                            <span
-                              className={cn(
-                                "mt-1.5 inline-flex items-center gap-1 rounded-full px-2 py-0.5 text-[10px] font-bold uppercase tracking-wide ring-1",
-                                theme.chip
-                              )}
-                            >
-                              <CheckCircle2 className="size-2.5" />
-                              Qualifies
-                            </span>
-                          </div>
-
-                          <span
-                            aria-hidden
-                            className="stat-value hidden font-display text-xl font-black text-neutral-100 transition-colors group-hover:text-brand-100 sm:block"
-                          >
-                            {String(index + 1).padStart(2, "0")}
+                            <CheckCircle2 className="size-2.5" />
+                            Qualifies
                           </span>
                         </div>
-                      </article>
-                    );
-                  })}
-                </div>
+
+                        <span
+                          aria-hidden
+                          className="stat-value hidden font-display text-xl font-black text-neutral-100 transition-colors group-hover:text-brand-100 sm:block"
+                        >
+                          {String(index + 1).padStart(2, "0")}
+                        </span>
+                      </div>
+                    </article>
+                  );
+                })}
+              </div>
+            </div>
+
+            <div className="relative mt-6 overflow-hidden rounded-2xl border border-brand-200/60 bg-gradient-to-br from-brand-50/80 via-white to-white p-6 shadow-soft md:p-7">
+              <div className="absolute inset-x-0 top-0 h-1 bg-gradient-to-r from-brand-500 to-accent-500" />
+              <div className="pointer-events-none absolute -right-8 -top-8 size-32 rounded-full bg-brand-100/50 blur-2xl" />
+
+              <div className="relative flex flex-col items-center gap-5 text-center sm:flex-row sm:text-left">
+                <span className="flex size-11 shrink-0 items-center justify-center rounded-2xl bg-gradient-to-br from-brand-600 to-brand-800 text-white shadow-lg shadow-brand-700/25">
+                  <Info className="size-5" />
+                </span>
+                <p className="min-w-0 flex-1 text-sm leading-relaxed text-neutral-700 sm:text-base">
+                  {conditionsSectionContent.infoCard}
+                </p>
+                <Button href="#apply" size="lg" className="w-full sm:w-auto sm:min-w-[200px]">
+                  {conditionsSectionContent.cta}
+                </Button>
               </div>
             </div>
           </div>

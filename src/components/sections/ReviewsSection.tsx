@@ -25,7 +25,7 @@ const avatarColors = [
   "from-brand-500 to-brand-700",
   "from-accent-500 to-accent-700",
   "from-emerald-500 to-emerald-700",
-  "from-violet-500 to-violet-700",
+  "from-brand-500 to-brand-700",
 ];
 
 function StarRating({ rating, size = "size-4" }: { rating: number; size?: string }) {
@@ -48,11 +48,9 @@ function StarRating({ rating, size = "size-4" }: { rating: number; size?: string
 function ReviewCard({
   review,
   index,
-  featured = false,
 }: {
   review: (typeof reviews)[number];
   index: number;
-  featured?: boolean;
 }) {
   const accent = index % 2 === 0 ? "brand" : "accent";
   const bar =
@@ -68,15 +66,14 @@ function ReviewCard({
     <blockquote
       className={cn(
         "group relative flex flex-col overflow-hidden rounded-2xl border bg-gradient-to-br p-[1px] shadow-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-card",
-        border,
-        featured && "sm:col-span-2 lg:row-span-2"
+        border
       )}
     >
       <div
         className={cn(
           "relative flex h-full flex-col overflow-hidden rounded-[calc(1rem-1px)] bg-gradient-to-br",
           surface,
-          featured ? "p-7 sm:p-8" : "p-6 sm:p-7"
+          "p-6 sm:p-7"
         )}
       >
         <CardShine />
@@ -91,20 +88,15 @@ function ReviewCard({
         <Quote
           className={cn(
             "absolute right-5 top-5 opacity-[0.07]",
-            featured ? "size-12" : "size-8",
+            "size-8",
             accent === "brand" ? "text-brand-600" : "text-accent-500"
           )}
           aria-hidden
         />
 
-        <StarRating rating={review.rating} size={featured ? "size-5" : "size-4"} />
+        <StarRating rating={review.rating} size="size-4" />
 
-        <p
-          className={cn(
-            "relative mt-4 flex-1 leading-relaxed text-neutral-700",
-            featured ? "text-base sm:text-lg" : "text-sm sm:text-base"
-          )}
-        >
+        <p className="relative mt-4 flex-1 text-sm leading-relaxed text-neutral-700 sm:text-base">
           &ldquo;{review.text}&rdquo;
         </p>
 
@@ -138,8 +130,6 @@ function ReviewCard({
 }
 
 export function ReviewsSection() {
-  const [featured, ...rest] = reviews;
-
   return (
     <section id="reviews" className="relative overflow-hidden py-16 md:py-28">
       <div className="pointer-events-none absolute inset-0 bg-dot-pattern opacity-30" />
@@ -150,9 +140,8 @@ export function ReviewsSection() {
       <Container className="relative">
         <div className="rounded-[2rem] bg-gradient-to-br from-brand-200/40 via-white/90 to-accent-200/30 p-[1px] shadow-elevated md:rounded-[2.5rem]">
           <div className="rounded-[calc(2rem-1px)] bg-gradient-to-br from-[#FAFDFC] via-white to-[#FAFAF7] p-6 sm:p-8 md:p-10 lg:p-12 md:rounded-[calc(2.5rem-1px)]">
-            <div className="grid gap-10 lg:grid-cols-[minmax(0,34%)_minmax(0,66%)] lg:gap-12 xl:gap-14">
-              {/* Left — summary */}
-              <div className="lg:sticky lg:top-28 lg:self-start">
+            <div className="mx-auto max-w-3xl text-center">
+              <div className="flex justify-center">
                 <span className="inline-flex items-center gap-2 rounded-full border border-brand-200/70 bg-white/90 px-4 py-2 text-xs font-bold uppercase tracking-wider text-brand-800 shadow-sm">
                   <span className="relative flex size-1.5">
                     <span className="absolute inline-flex size-full animate-ping rounded-full bg-brand-400 opacity-60" />
@@ -161,57 +150,34 @@ export function ReviewsSection() {
                   <Sparkles className="size-3.5 text-brand-600" />
                   Patient Reviews
                 </span>
+              </div>
 
-                <h2 className="section-heading mt-5 text-neutral-900">
-                  What Our Patients Are{" "}
-                  <span className="text-gradient-brand">Saying</span>
-                </h2>
-                <p className="mt-4 text-base leading-relaxed text-neutral-600">
-                  Hear from real patients who completed their medical marijuana evaluation with us.
-                </p>
+              <h2 className="section-heading mt-5 text-neutral-900">
+                What Our Patients Are{" "}
+                <span className="text-gradient-brand">Saying</span>
+              </h2>
+              <p className="mx-auto mt-4 max-w-2xl text-base leading-relaxed text-neutral-600">
+                Hear from real patients who completed their medical marijuana evaluation with us.
+              </p>
 
-                {/* Rating summary card */}
-                <div className="relative mt-8 overflow-hidden rounded-2xl border border-brand-200/70 bg-gradient-to-br from-brand-50/80 via-white to-accent-50/40 p-6 shadow-soft">
-                  <div className="absolute inset-x-0 top-0 h-1 bg-gradient-to-r from-brand-500 to-accent-500" />
-                  <p className="stat-value font-display text-5xl font-extrabold tracking-tight text-neutral-900">
-                    4.9
-                  </p>
-                  <StarRating rating={5} size="size-5" />
-                  <p className="mt-3 text-sm font-semibold text-neutral-700">
-                    Excellent rating · <span className="stat-value">450+</span> reviews
-                  </p>
-
-                  <div className="mt-5 space-y-2">
-                    {[5, 4, 3, 2, 1].map((stars) => {
-                      const width = stars === 5 ? 88 : stars === 4 ? 10 : 2;
-                      return (
-                        <div key={stars} className="flex items-center gap-2 text-xs">
-                          <span className="stat-value w-3 font-bold text-neutral-500">{stars}</span>
-                          <Star className="size-3 fill-accent-400 text-accent-400" />
-                          <div className="h-1.5 flex-1 overflow-hidden rounded-full bg-neutral-100">
-                            <div
-                              className="h-full rounded-full bg-gradient-to-r from-accent-400 to-accent-500"
-                              style={{ width: `${width}%` }}
-                            />
-                          </div>
-                        </div>
-                      );
-                    })}
-                  </div>
-                </div>
-
-                <Button href="/reviews" variant="outline" className="mt-6 w-full border-brand-200 sm:w-auto">
+              <div className="mx-auto mt-7 flex max-w-xl flex-wrap items-center justify-center gap-x-4 gap-y-2 rounded-2xl border border-brand-200/70 bg-white/80 px-5 py-4 shadow-soft">
+                <span className="stat-value font-display text-3xl font-extrabold tracking-tight text-neutral-900">
+                  4.9
+                </span>
+                <StarRating rating={5} size="size-4" />
+                <span className="text-sm font-semibold text-neutral-700">
+                  Excellent rating · <span className="stat-value">450+</span> reviews
+                </span>
+                <Button href="/reviews" variant="outline" className="border-brand-200">
                   View All Reviews
                 </Button>
               </div>
+            </div>
 
-              {/* Right — bento review grid */}
-              <div className="grid auto-rows-fr gap-4 sm:grid-cols-2 sm:gap-5">
-                <ReviewCard review={featured} index={0} featured />
-                {rest.map((review, index) => (
-                  <ReviewCard key={review.name} review={review} index={index + 1} />
-                ))}
-              </div>
+            <div className="mt-10 grid gap-4 sm:grid-cols-2 sm:gap-5">
+              {reviews.map((review, index) => (
+                <ReviewCard key={review.name} review={review} index={index} />
+              ))}
             </div>
           </div>
         </div>

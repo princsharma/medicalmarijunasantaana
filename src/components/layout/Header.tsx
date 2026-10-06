@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import Link from "next/link";
 import { useEffect, useState } from "react";
 import { usePathname } from "next/navigation";
@@ -121,20 +122,18 @@ export function Header() {
         <div className="flex h-16 items-center justify-between gap-3 sm:h-[4.5rem] sm:gap-4">
           <Link
             href="/"
-            className="group flex min-w-0 items-center gap-2.5 sm:gap-3"
+            className="group flex min-w-0 items-center"
             aria-label={`${siteConfig.name} home`}
           >
-            <span className="flex size-10 shrink-0 items-center justify-center rounded-2xl bg-gradient-to-br from-brand-500 to-brand-700 text-sm font-bold text-white shadow-lg shadow-brand-900/40 transition-transform duration-300 group-hover:scale-105 sm:size-11">
-              MMJ
-            </span>
-            <div className="min-w-0">
-              <span className="block truncate font-display text-sm font-bold leading-tight text-white sm:text-base">
-                {siteConfig.shortName}
-              </span>
-              <span className="block truncate text-[10px] font-medium text-brand-300/90 sm:text-[11px]">
-                Santa Ana, California
-              </span>
-            </div>
+            <Image
+              src="/brand-logo-light.webp"
+              alt="Medical Marijuana Santa Ana"
+              width={1917}
+              height={368}
+              priority
+              className="h-auto w-36 sm:w-48"
+              sizes="(max-width: 640px) 144px, 192px"
+            />
           </Link>
 
           <nav

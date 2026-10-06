@@ -3,9 +3,9 @@
 import { useEffect, useRef, useState } from "react";
 import {
   BadgeCheck,
+  ClipboardCheck,
   CircleDollarSign,
   Clock,
-  Heart,
   Lock,
   ShieldCheck,
   Sparkles,
@@ -13,6 +13,7 @@ import {
   TrendingUp,
   Users,
   Video,
+  Zap,
 } from "lucide-react";
 import type { LucideIcon } from "lucide-react";
 import { trustBadges, trustStatConfig } from "@/data/homepage";
@@ -25,6 +26,8 @@ import { Container } from "@/components/ui/Container";
 import { cn } from "@/lib/utils";
 
 const statIcons: LucideIcon[] = [Users, TrendingUp, Clock, ShieldCheck];
+const statMarkerIcons: LucideIcon[] = [BadgeCheck, ClipboardCheck, Zap];
+const statMarkerLabels = ["Verified", "Reviewed", "Same-day"];
 
 const statHints = [
   "Across California",
@@ -99,51 +102,6 @@ function CardHoverShine() {
   );
 }
 
-function StatProgressRing({
-  value,
-  active,
-  className,
-}: {
-  value: number;
-  active: boolean;
-  className?: string;
-}) {
-  const radius = 34;
-  const circumference = 2 * Math.PI * radius;
-  const progress = Math.min(value / 100, 1);
-  const offset = circumference - progress * circumference;
-
-  return (
-    <svg
-      className={cn("size-[4.5rem] -rotate-90 sm:size-20", className)}
-      viewBox="0 0 80 80"
-      aria-hidden="true"
-    >
-      <circle
-        cx="40"
-        cy="40"
-        r={radius}
-        fill="none"
-        stroke="currentColor"
-        strokeWidth="5"
-        className="text-neutral-200/80"
-      />
-      <circle
-        cx="40"
-        cy="40"
-        r={radius}
-        fill="none"
-        stroke="currentColor"
-        strokeWidth="5"
-        strokeLinecap="round"
-        strokeDasharray={circumference}
-        strokeDashoffset={active ? offset : circumference}
-        className="text-emerald-500 transition-[stroke-dashoffset] duration-[2200ms] ease-out"
-      />
-    </svg>
-  );
-}
-
 function useCountUp(target: number, active: boolean, duration = 2200) {
   const [count, setCount] = useState(0);
 
@@ -189,8 +147,10 @@ function AnimatedStatCard({
   const Icon = statIcons[index] ?? Users;
   const theme = cardThemes[index % cardThemes.length];
   const display = formatAnimatedStatValue(count, stat.target, stat.format);
-  const isApprovalRate = stat.label === "Approval Rate";
+  const hasPlusSuffix = stat.format === "locale-plus" && display.endsWith("+");
   const isSupport = stat.label === "Support Available";
+  const MarkerIcon = statMarkerIcons[index] ?? BadgeCheck;
+  const markerLabel = statMarkerLabels[index] ?? "Verified";
 
   return (
     <article
@@ -250,8 +210,10 @@ function AnimatedStatCard({
           <div className="mt-5 flex items-end justify-between gap-3">
             <div className="min-w-0">
               <p className="stat-value font-display text-3xl font-extrabold tracking-tight text-neutral-900 sm:text-[2.15rem]">
-                {display}
-                {stat.format !== "locale-plus" ? (
+                {hasPlusSuffix ? display.slice(0, -1) : display}
+                {hasPlusSuffix ? (
+                  <span className="text-lg font-bold text-brand-700 sm:text-xl">+</span>
+                ) : stat.format !== "locale-plus" ? (
                   <span className="text-lg font-bold text-brand-700 sm:text-xl">
                     {stat.suffix}
                   </span>
@@ -263,25 +225,18 @@ function AnimatedStatCard({
               <p className="mt-1 text-xs text-neutral-500">{statHints[index]}</p>
             </div>
 
-            {isApprovalRate ? (
-              <div className="relative shrink-0">
-                <StatProgressRing value={count} active={active} />
-                <span className="absolute inset-0 flex items-center justify-center font-display text-sm font-bold text-emerald-700">
-                  {count}%
-                </span>
-              </div>
-            ) : isSupport ? (
-              <div className="flex shrink-0 flex-col items-center gap-1 rounded-xl border border-accent-200/70 bg-accent-50/60 px-3 py-2">
+            {isSupport ? (
+              <div className="flex shrink-0 flex-col items-end gap-0.5">
                 <Lock className="size-4 text-accent-600" />
-                <span className="text-[10px] font-bold uppercase tracking-wide text-accent-800">
+                <span className="text-[10px] font-bold uppercase tracking-wide text-neutral-400">
                   Secure
                 </span>
               </div>
             ) : (
-              <div className="hidden shrink-0 flex-col items-end gap-0.5 sm:flex">
-                <Heart className="size-4 text-brand-500" />
+              <div className="flex shrink-0 flex-col items-end gap-0.5">
+                <MarkerIcon className="size-4 text-brand-500" />
                 <span className="text-[10px] font-bold uppercase tracking-wide text-neutral-400">
-                  Verified
+                  {markerLabel}
                 </span>
               </div>
             )}
