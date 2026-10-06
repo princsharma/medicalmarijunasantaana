@@ -4,7 +4,7 @@ export const siteConfig = {
   description:
     "Get your medical marijuana card in Santa Ana, California. Licensed doctors, same-day telehealth evaluations, and HIPAA-compliant online applications.",
   url: process.env.NEXT_PUBLIC_SITE_URL ?? "https://medicalmarijuanacardsantaana.com",
-  ogImage: "/opengraph-image.png",
+  ogImage: "/opengraph-image",
   phone: "+1 333 444 1111",
   phoneDisplay: "(333) 444-1111",
   email: "contact@medicalmarijuanacardsantaana.com",
