@@ -9,7 +9,7 @@ export function getMetadataBaseUrl() {
     return new URL(fromEnv.endsWith("/") ? fromEnv : `${fromEnv}/`);
   }
   if (process.env.NODE_ENV === "development") {
-    return new URL("http://localhost:3000/");
+    return new URL("https://medicalmarijunasantaana.vercel.app/");
   }
   return new URL(getCanonicalOrigin() + "/");
 }
