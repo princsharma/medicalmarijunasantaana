@@ -5,9 +5,9 @@ import { OfficeMapSection } from "@/components/sections/OfficeMapSection";
 import { Breadcrumbs } from "@/components/ui/Breadcrumbs";
 import { Container } from "@/components/ui/Container";
 import { contactPageContent } from "@/data/contact";
-import { buildMetadata } from "@/lib/seo";
+import { buildHubMetadata } from "@/lib/og/hub-metadata";
 
-export const metadata: Metadata = buildMetadata({
+export const metadata: Metadata = buildHubMetadata({
   title: "Contact Us",
   description:
     "Contact our Santa Ana medical marijuana card team by phone, email, or form. We're here to help with your MMJ evaluation questions.",
@@ -32,7 +32,7 @@ export default function ContactUsPage() {
               Friendly help, right here in Santa Ana
             </p>
             <h1 className="mt-4 font-display text-4xl font-bold tracking-tight text-neutral-950 sm:text-5xl md:text-6xl">
-              Let&apos;s talk.
+              Let&;s talk.
             </h1>
             <p className="mt-5 max-w-2xl text-lg leading-relaxed text-neutral-600">
               Have a question about your medical marijuana card? Tell us what you need and our
@@ -49,10 +49,10 @@ export default function ContactUsPage() {
               Reach our team
             </p>
             <h2 className="mt-3 font-display text-2xl font-bold tracking-tight sm:text-3xl">
-              We&apos;re here when you need us.
+              We are here when you need us.
             </h2>
             <p className="mt-3 text-sm leading-relaxed text-brand-100/80">
-              Choose what works best for you. We&apos;re happy to answer questions about the
+              Choose what works best for you. We are happy to answer questions about the
               evaluation process and getting started.
             </p>
 
@@ -115,7 +115,7 @@ export default function ContactUsPage() {
                     How can we help?
                   </h2>
                   <p className="mt-2 text-sm leading-relaxed text-neutral-600">
-                    Share a few details and we&apos;ll get back to you within one business day.
+                    Share a few details and we will get back to you within one business day.
                   </p>
                 </div>
               </div>
@@ -124,7 +124,7 @@ export default function ContactUsPage() {
               <ContactForm />
               <p className="mt-5 flex items-start gap-2 text-xs leading-relaxed text-neutral-500">
                 <ShieldCheck className="mt-0.5 size-4 shrink-0 text-brand-700" aria-hidden="true" />
-                Please don&apos;t include sensitive medical information in this form.
+                Please don't include sensitive medical information in this form.
               </p>
             </div>
           </section>

@@ -16,9 +16,9 @@ import { Button } from "@/components/ui/Button";
 import { Container } from "@/components/ui/Container";
 import { DoctorsGrid } from "@/components/doctors/DoctorsGrid";
 import { doctorHubFaqs } from "@/data/doctors";
-import { buildMetadata } from "@/lib/seo";
+import { buildHubMetadata } from "@/lib/og/hub-metadata";
 
-export const metadata: Metadata = buildMetadata({
+export const metadata: Metadata = buildHubMetadata({
   title: "Our Doctors",
   description:
     "Meet the California-licensed physicians who provide telehealth medical marijuana evaluations for Santa Ana and Orange County patients.",

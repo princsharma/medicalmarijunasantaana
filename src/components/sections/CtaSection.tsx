@@ -60,7 +60,7 @@ export function CtaSection() {
                   Book your appointment today and talk to a licensed California doctor within{" "}
                   <span className="stat-value font-semibold text-white">24–48 hours</span> — with a{" "}
                   <span className="stat-value font-semibold text-white">100%</span> money-back
-                  guarantee if you&apos;re not approved.
+                  guarantee if you&apo;re not approved.
                 </p>
 
                 <div className="mt-8 flex flex-col gap-3 sm:flex-row sm:items-center">

@@ -12,9 +12,9 @@ import {
   aboutNotIncluded,
   aboutProcessSteps,
 } from "@/data/about";
-import { buildMetadata } from "@/lib/seo";
+import { buildHubMetadata } from "@/lib/og/hub-metadata";
 
-export const metadata: Metadata = buildMetadata({
+export const metadata: Metadata = buildHubMetadata({
   title: "About Us",
   description:
     "Learn how Medical Marijuana Card Santa Ana connects Orange County patients with licensed California physicians for telehealth medical marijuana evaluations.",

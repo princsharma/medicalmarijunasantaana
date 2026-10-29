@@ -4,6 +4,7 @@ import { Breadcrumbs } from "@/components/ui/Breadcrumbs";
 import { DoctorProfileContent } from "@/components/doctors/DoctorProfileContent";
 import { doctors, doctorDisplayName, getDoctorBySlug } from "@/data/doctors";
 import { getDoctorProfile } from "@/data/doctor-profiles";
+import { getDoctorSlugOgImagePath } from "@/lib/og/doctor-slug";
 import { buildMetadata } from "@/lib/seo";
 
 type PageProps = {
@@ -19,10 +20,19 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
   const doctor = getDoctorBySlug(slug);
   if (!doctor) return {};
 
+  const path = `/doctors/${slug}`;
+
+  const displayName = doctorDisplayName(doctor);
+
   return buildMetadata({
-    title: doctorDisplayName(doctor),
-    description: `${doctor.bio} Book a telehealth medical marijuana evaluation in Santa Ana.`,
-    path: `/doctors/${slug}`,
+    title: displayName,
+    description:
+      doctor.seoDescription ??
+      `${doctor.bio} Book a telehealth medical marijuana evaluation in Santa Ana.`,
+    path,
+    ogImage: getDoctorSlugOgImagePath(doctor),
+    ogImageDimensions: "auto",
+    imageAlt: displayName,
   });
 }
 

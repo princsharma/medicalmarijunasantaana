@@ -10,6 +10,7 @@ import {
   Shield,
 } from "lucide-react";
 import { trustBadges } from "@/data/homepage";
+import { footerOurPoliciesLinks, footerLegalPolicyLinks } from "@/data/policies";
 import { footerNav } from "@/data/navigation";
 import { siteConfig } from "@/data/site";
 import { Button } from "@/components/ui/Button";
@@ -115,16 +116,16 @@ export function Footer() {
                 appointments.
               </p>
 
-              <div className="mt-6 grid gap-3 sm:grid-cols-2 lg:grid-cols-1 xl:grid-cols-2">
+              <div className="mt-6 grid gap-3 grid-cols-1 xl:grid-cols-2 xl:items-stretch">
                 <a
                   href={`tel:${siteConfig.phone.replace(/\s/g, "")}`}
                   aria-label={`Call us at ${siteConfig.phoneDisplay}`}
-                  className="group flex items-center gap-3 rounded-2xl border border-white/10 bg-white/5 p-4 transition-all duration-300 hover:border-brand-400/30 hover:bg-white/10"
+                  className="group flex h-full items-start gap-3 rounded-2xl border border-white/10 bg-white/5 p-4 transition-all duration-300 hover:border-brand-400/30 hover:bg-white/10"
                 >
                   <span className="flex size-10 shrink-0 items-center justify-center rounded-xl bg-brand-500/20 text-brand-200 transition-colors group-hover:bg-brand-400/25">
                     <Phone className="size-4" aria-hidden="true" />
                   </span>
-                  <span className="min-w-0">
+                  <span className="min-w-0 flex-1">
                     <span className="block text-[11px] font-semibold uppercase tracking-wider text-brand-300/70">
                       Call Us
                     </span>
@@ -137,22 +138,22 @@ export function Footer() {
                 <a
                   href={`mailto:${siteConfig.email}`}
                   aria-label={`Email us at ${siteConfig.email}`}
-                  className="group flex items-center gap-3 rounded-2xl border border-white/10 bg-white/5 p-4 transition-all duration-300 hover:border-brand-400/30 hover:bg-white/10"
+                  className="group flex h-full items-start gap-3 rounded-2xl border border-white/10 bg-white/5 p-4 transition-all duration-300 hover:border-brand-400/30 hover:bg-white/10"
                 >
                   <span className="flex size-10 shrink-0 items-center justify-center rounded-xl bg-brand-500/20 text-brand-200 transition-colors group-hover:bg-brand-400/25">
                     <Mail className="size-4" aria-hidden="true" />
                   </span>
-                  <span className="min-w-0">
-                    <span className="block text-[13px] font-semibold uppercase tracking-wider text-brand-300/70">
+                  <span className="min-w-0 flex-1">
+                    <span className="block text-[11px] font-semibold uppercase tracking-wider text-brand-300/70">
                       Email
                     </span>
-                    <span className="mt-0.5 block truncate text-sm font-semibold text-white">
+                    <span className="mt-0.5 block break-words text-sm font-semibold leading-snug text-white">
                       {siteConfig.email}
                     </span>
                   </span>
                 </a>
 
-                <div className="flex items-start gap-3 rounded-2xl border border-white/10 bg-white/5 p-4 sm:col-span-2 lg:col-span-1 xl:col-span-2">
+                <div className="flex items-start gap-3 rounded-2xl border border-white/10 bg-white/5 p-4 xl:col-span-2">
                   <span className="flex size-10 shrink-0 items-center justify-center rounded-xl bg-brand-500/20 text-brand-200">
                     <MapPin className="size-4" aria-hidden="true" />
                   </span>
@@ -167,7 +168,7 @@ export function Footer() {
                   </span>
                 </div>
 
-                <div className="flex items-center gap-3 rounded-2xl border border-white/10 bg-white/5 p-4 sm:col-span-2 lg:col-span-1 xl:col-span-2">
+                <div className="flex items-center gap-3 rounded-2xl border border-white/10 bg-white/5 p-4 xl:col-span-2">
                   <span className="flex size-10 shrink-0 items-center justify-center rounded-xl bg-accent-500/20 text-accent-200">
                     <Clock className="size-4" aria-hidden="true" />
                   </span>
@@ -199,13 +200,22 @@ export function Footer() {
             </div>
 
             {/* Navigation columns */}
-            <div className="grid grid-cols-2 gap-8 sm:gap-10 lg:col-span-5 lg:gap-12 xl:col-span-6 xl:justify-items-end">
+            <div className="grid grid-cols-2 gap-8 sm:gap-10 lg:col-span-5 lg:grid-cols-3 lg:gap-8 xl:col-span-6 xl:justify-items-end">
               <FooterLinkColumn
                 heading="Resources"
                 links={footerNav.resources}
                 navLabel="Footer resources"
               />
-              <FooterLinkColumn heading="Legal" links={footerNav.legal} navLabel="Footer legal" />
+              <FooterLinkColumn
+                heading="Our Policies"
+                links={footerOurPoliciesLinks}
+                navLabel="Footer our policies"
+              />
+              <FooterLinkColumn
+                heading="Legal"
+                links={footerLegalPolicyLinks}
+                navLabel="Footer legal policies"
+              />
 
               {/* Decorative trust card — hidden on smallest screens, shown from sm */}
               <div className="col-span-2 hidden rounded-2xl border border-white/10 bg-gradient-to-br from-white/10 to-white/[0.02] p-5 backdrop-blur-sm sm:block lg:col-span-2 xl:max-w-md xl:justify-self-end">

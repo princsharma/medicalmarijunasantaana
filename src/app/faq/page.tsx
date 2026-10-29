@@ -6,9 +6,9 @@ import { Container } from "@/components/ui/Container";
 import { PageHero } from "@/components/ui/PageHero";
 import { faqItems } from "@/data/homepage";
 import { siteConfig } from "@/data/site";
-import { buildMetadata } from "@/lib/seo";
+import { buildHubMetadata } from "@/lib/og/hub-metadata";
 
-export const metadata: Metadata = buildMetadata({
+export const metadata: Metadata = buildHubMetadata({
   title: "FAQ",
   description:
     "Answers to common questions about getting a medical marijuana card in Santa Ana — pricing, timing, privacy, and eligibility.",

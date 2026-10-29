@@ -6,9 +6,9 @@ import { Button } from "@/components/ui/Button";
 import { Container } from "@/components/ui/Container";
 import { PageHero } from "@/components/ui/PageHero";
 import { blogPosts, getFeaturedPost } from "@/data/blog";
-import { buildMetadata } from "@/lib/seo";
+import { buildHubMetadata } from "@/lib/og/hub-metadata";
 
-export const metadata: Metadata = buildMetadata({
+export const metadata: Metadata = buildHubMetadata({
   title: "Blog",
   description:
     "Guides on medical marijuana laws, MMIC benefits, qualifying conditions, and patient rights for Santa Ana and California.",

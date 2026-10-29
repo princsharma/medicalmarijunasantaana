@@ -12,6 +12,7 @@ import {
   getPostFaqs,
   getPostHeadings,
 } from "@/data/blog";
+import { DEFAULT_OG_CARD_PATH } from "@/lib/og/og-cards";
 import { buildMetadata } from "@/lib/seo";
 
 type PageProps = {
@@ -27,13 +28,17 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
   const post = getPostBySlug(slug);
   if (!post) return {};
 
+  const path = `/blog/${slug}`;
+
   return buildMetadata({
     title: post.seoTitle ?? post.title,
     description: post.seoDescription ?? post.excerpt,
-    path: `/blog/${slug}`,
+    path,
     openGraphType: "article",
     publishedTime: post.date,
     authors: [post.author],
+    ogImage: post.image ?? post.authorFeatureImage ?? DEFAULT_OG_CARD_PATH,
+    ogImageDimensions: "auto",
   });
 }
 

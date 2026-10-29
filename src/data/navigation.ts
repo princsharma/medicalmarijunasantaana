@@ -3,7 +3,8 @@ export const mainNav = [
   { label: "Benefits", href: "/#benefits" },
   { label: "Pricing", href: "/#pricing" },
   { label: "FAQ", href: "/#faq" },
-  // { label: "Blog", href: "/blog" },
+  { label: "Blog", href: "/blog" },
+  { label: "Authors", href: "/our-authors" },
   { label: "Contact Us", href: "/contact-us" },
 ] as const;
 
@@ -15,11 +16,5 @@ export const footerNav = {
     // { label: "Blog", href: "/blog" },
     { label: "FAQ", href: "/faq" },
     { label: "Contact Us", href: "/contact-us" },
-  ],
-  legal: [
-    { label: "Terms of Use", href: "/terms-of-use" },
-    { label: "Privacy Policy", href: "/privacy-policy" },
-    { label: "Refund Policy", href: "/refund-policy" },
-    { label: "Shipment Policy", href: "/shipment-policy-and-disclaimer" },
   ],
 } as const;

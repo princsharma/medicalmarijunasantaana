@@ -214,7 +214,7 @@ export function ApplicationPopupForm({ onClose }: ApplicationPopupFormProps) {
                   id="popupFirstName"
                   name="firstName"
                   label="First Name"
-                  placeholder="Jane"
+                  placeholder="Ryan"
                   required
                   autoComplete="given-name"
                   value={firstName}
@@ -225,7 +225,7 @@ export function ApplicationPopupForm({ onClose }: ApplicationPopupFormProps) {
                   id="popupLastName"
                   name="lastName"
                   label="Last Name"
-                  placeholder="Doe"
+                  placeholder="Mitchell"
                   required
                   autoComplete="family-name"
                   value={lastName}
@@ -261,7 +261,7 @@ export function ApplicationPopupForm({ onClose }: ApplicationPopupFormProps) {
                   How can we reach you?
                 </h3>
                 <p className="mt-2 text-sm leading-relaxed text-neutral-600 sm:text-base">
-                  We&apos;ll send your approval details and appointment link to these contacts.
+                  We&apo;ll send your approval details and appointment link to these contacts.
                 </p>
               </div>
 
@@ -271,7 +271,7 @@ export function ApplicationPopupForm({ onClose }: ApplicationPopupFormProps) {
                   name="email"
                   type="email"
                   label="Email"
-                  placeholder="jane@example.com"
+                  placeholder="ryanmitchell@gmail.com"
                   required
                   autoComplete="email"
                   value={email}
@@ -301,7 +301,7 @@ export function ApplicationPopupForm({ onClose }: ApplicationPopupFormProps) {
                     <>
                       I accept the{" "}
                       <Link
-                        href="/terms-of-use"
+                        href="/our-policies/terms-of-use"
                         className="font-medium text-brand-700 underline hover:text-brand-800"
                         onClick={onClose}
                       >

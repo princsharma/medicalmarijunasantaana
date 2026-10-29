@@ -194,14 +194,14 @@ export function BenefitsSection() {
                   <p className="mt-2 text-sm leading-relaxed text-neutral-600">
                     {cultivation.description}
                   </p>
-                  <div className="mt-5 flex flex-wrap gap-2">
+                  <div className="mt-5 flex items-end gap-1">
                     {Array.from({ length: 6 }).map((_, i) => (
                       <span
                         key={i}
-                        className="flex size-8 items-center justify-center rounded-lg bg-accent-100 text-accent-700 transition-transform duration-300 group-hover:scale-105"
+                        className="flex size-11 shrink-0 items-center justify-center rounded-lg bg-accent-100 text-accent-700 transition-transform duration-300 group-hover:scale-105"
                         style={{ transitionDelay: `${i * 35}ms` }}
                       >
-                        <Sprout className="size-3.5" />
+                        <Sprout className="size-5" strokeWidth={2.25} />
                       </span>
                     ))}
                   </div>

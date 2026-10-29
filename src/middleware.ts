@@ -1,10 +1,18 @@
 import { NextResponse } from "next/server";
 import type { NextRequest } from "next/server";
+import { isGonePath } from "@/data/gone-paths";
 import { getCanonicalHostRedirect, normalizePathname } from "@/lib/url-normalization";
 
 export function middleware(request: NextRequest) {
   const { pathname, search } = request.nextUrl;
   const host = request.headers.get("host") ?? "";
+
+  if (isGonePath(pathname)) {
+    const url = request.nextUrl.clone();
+    url.pathname = "/gone";
+    url.search = search;
+    return NextResponse.rewrite(url, { status: 410 });
+  }
 
   const canonicalHost = getCanonicalHostRedirect(host);
   const normalizedPath = normalizePathname(pathname);

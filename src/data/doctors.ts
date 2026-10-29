@@ -1,11 +1,4 @@
-export const doctorSpecialties = [
-  "All",
-  "Family Medicine",
-  "General Medicine",
-  "Pediatrics",
-] as const;
-
-export type DoctorSpecialty = Exclude<(typeof doctorSpecialties)[number], "All">;
+export type DoctorSpecialty = "Family Medicine" | "General Medicine" | "Pediatrics";
 
 export type Doctor = {
   slug: string;
@@ -15,20 +8,11 @@ export type Doctor = {
   experience?: string;
   specialty: DoctorSpecialty;
   bio: string;
+  seoDescription?: string;
   photo?: string;
 };
 
 export const doctors: Doctor[] = [
-  {
-    slug: "cheryl-bugailiskis",
-    name: "Cheryl Bugailiskis",
-    credential: "MD",
-    licenseLabel: "Licensed CA · MD",
-    experience: "15+ Years",
-    specialty: "Pediatrics",
-    bio: "A board-certified pediatrician with more than 10 years of clinical experience providing patient-centered, state-compliant medical cannabis evaluations.",
-    photo: "/doctors/dr-cheryl-bugailiskis..webp",
-  },
   {
     slug: "rick-rieser",
     name: "Rick Rieser",
@@ -37,6 +21,8 @@ export const doctors: Doctor[] = [
     experience: "Decades",
     specialty: "General Medicine",
     bio: "A licensed nuclear medicine specialist who provides thorough, patient-focused medical marijuana evaluations while following applicable California regulations.",
+    seoDescription:
+      "Meet Dr. Rick Rieser, MD for a medical marijuana evaluation in Santa Ana, CA. Book a secure telehealth visit with a California-licensed physician.",
     photo: "/doctors/dr-rick-rieser.webp",
   },
   {
@@ -47,9 +33,16 @@ export const doctors: Doctor[] = [
     experience: "8 Years",
     specialty: "General Medicine",
     bio: "A California-licensed physician who takes a comprehensive, patient-centered approach to state-compliant medical marijuana evaluations.",
+    seoDescription:
+      "Meet Dr. Johnathan Miller, MD for a medical marijuana evaluation in Santa Ana, CA. Book a secure telehealth visit with a California-licensed physician.",
     photo: "/doctors/dr-johnathan-c-miller.webp",
   },
 ];
+
+export const doctorSpecialties = [
+  "All",
+  ...Array.from(new Set(doctors.map((doctor) => doctor.specialty))),
+] as const;
 
 export function getDoctorBySlug(slug: string) {
   return doctors.find((doctor) => doctor.slug === slug);

@@ -1,5 +1,7 @@
 import type { MetadataRoute } from "next";
 import { blogPosts } from "@/data/blog";
+import { contributors } from "@/data/contributors";
+import { policyPages } from "@/data/policies";
 import { doctors } from "@/data/doctors";
 import { siteConfig } from "@/data/site";
 import { getCanonicalOrigin } from "@/lib/url-normalization";
@@ -9,13 +11,11 @@ const STATIC_PAGES = [
   "/about-us",
   "/contact-us",
   "/doctors",
+  "/our-authors",
   "/blog",
   "/faq",
   "/reviews",
-  "/terms-of-use",
-  "/privacy-policy",
-  "/refund-policy",
-  "/shipment-policy-and-disclaimer",
+  "/our-policies",
 ] as const;
 
 type HeaderGetter = (name: string) => string | null;
@@ -73,6 +73,18 @@ export function getSitemapEntries(baseUrl: string): MetadataRoute.Sitemap {
       lastModified,
       changeFrequency: "monthly" as const,
       priority: 0.7,
+    })),
+    ...contributors.map((contributor) => ({
+      url: `${origin}/our-authors/${contributor.slug}`,
+      lastModified,
+      changeFrequency: "monthly" as const,
+      priority: 0.65,
+    })),
+    ...policyPages.map((policy) => ({
+      url: `${origin}/our-policies/${policy.slug}`,
+      lastModified,
+      changeFrequency: "monthly" as const,
+      priority: 0.5,
     })),
     ...blogPosts.map((post) => ({
       url: `${origin}/blog/${post.slug}`,

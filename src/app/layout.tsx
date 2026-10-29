@@ -6,9 +6,12 @@ import { Header } from "@/components/layout/Header";
 import { ApplicationPopupProvider } from "@/components/providers/ApplicationPopupProvider";
 import { OrganizationJsonLd } from "@/components/seo/JsonLd";
 import { siteConfig } from "@/data/site";
+import { getMetadataBaseUrl } from "@/lib/seo";
 import "./globals.css";
 
-const gtmId = process.env.NEXT_PUBLIC_GTM_ID;
+const gtmId = process.env.NEXT_PUBLIC_GTM_ID ?? siteConfig.gtmId;
+const googleSiteVerification =
+  process.env.NEXT_PUBLIC_GOOGLE_SITE_VERIFICATION ?? siteConfig.googleSiteVerification;
 
 const plusJakarta = Plus_Jakarta_Sans({
   variable: "--font-plus-jakarta",
@@ -28,7 +31,7 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  metadataBase: new URL(siteConfig.url),
+  metadataBase: getMetadataBaseUrl(),
   title: {
     default: siteConfig.name,
     template: `%s | ${siteConfig.name}`,
@@ -41,21 +44,12 @@ export const metadata: Metadata = {
     type: "website",
     locale: "en_US",
     siteName: siteConfig.name,
-    images: [
-      {
-        url: siteConfig.ogImage,
-        width: 1200,
-        height: 630,
-        alt: siteConfig.name,
-      },
-    ],
   },
   twitter: {
     card: "summary_large_image",
-    images: [{ url: siteConfig.ogImage, alt: siteConfig.name }],
   },
   verification: {
-    google: process.env.NEXT_PUBLIC_GOOGLE_SITE_VERIFICATION,
+    google: googleSiteVerification,
   },
 };
 
@@ -75,7 +69,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
         <OrganizationJsonLd />
       </head>
       <body className="flex min-h-full flex-col antialiased">
-        {gtmId ? <GoogleTagManager gtmId={gtmId} /> : null}
+        <GoogleTagManager gtmId={gtmId} />
         <ApplicationPopupProvider>
           <Header />
           <main className="flex-1">{children}</main>

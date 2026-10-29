@@ -70,17 +70,17 @@ function FaqAccordionItem({
 
   return (
     <details
-      className="group relative overflow-hidden rounded-2xl border border-neutral-200/70 bg-white shadow-sm transition-all duration-300 open:border-brand-300/80 open:shadow-card hover:border-brand-200/80 hover:shadow-md"
+      className="group overflow-hidden rounded-2xl border border-neutral-200/70 bg-white shadow-sm transition-all duration-300 open:border-brand-300/80 open:shadow-card hover:border-brand-200/80 hover:shadow-md"
       open={defaultOpen}
     >
-      <div
-        className={cn(
-          "pointer-events-none absolute inset-y-0 left-0 w-1 scale-y-0 bg-gradient-to-b opacity-0 transition-all duration-300 group-open:scale-y-100 group-open:opacity-100",
-          meta?.accent ?? "from-brand-500 to-brand-700"
-        )}
-      />
-
-      <summary className="flex cursor-pointer list-none items-start gap-3 px-4 py-4 transition-colors sm:gap-4 sm:px-5 sm:py-5 [&::-webkit-details-marker]:hidden">
+      <summary className="relative flex cursor-pointer list-none items-start gap-3 px-4 py-4 transition-colors sm:gap-4 sm:px-5 sm:py-5 [&::-webkit-details-marker]:hidden">
+        <span
+          aria-hidden="true"
+          className={cn(
+            "pointer-events-none absolute inset-y-0 left-0 w-1 scale-y-0 bg-gradient-to-b opacity-0 transition-all duration-300 group-open:scale-y-100 group-open:opacity-100",
+            meta?.accent ?? "from-brand-500 to-brand-700"
+          )}
+        />
         <span
           className={cn(
             "flex size-10 shrink-0 items-center justify-center rounded-xl bg-gradient-to-br text-white shadow-md transition-transform duration-300 group-open:scale-105 sm:size-11",

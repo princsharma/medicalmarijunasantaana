@@ -12,8 +12,9 @@ import {
   formatLeadPhone,
   hasLeadFormErrors,
   validateLeadEmail,
+  validateFname,
+  validateLname,
   validateLeadForm,
-  validateLeadName,
   validateLeadPhone,
   type LeadFormErrors,
 } from "@/lib/lead-form-validation";
@@ -38,7 +39,8 @@ export function LeadCaptureForm({
   price,
   priceSuffix,
 }: LeadCaptureFormProps) {
-  const [name, setName] = useState("");
+  const [firstName, setFirstName] = useState("");
+  const [lastName, setLastName] = useState("");
   const [email, setEmail] = useState("");
   const [phone, setPhone] = useState("");
   const [termsAccepted, setTermsAccepted] = useState(false);
@@ -46,14 +48,21 @@ export function LeadCaptureForm({
   const [errors, setErrors] = useState<LeadFormErrors>({});
   const [submitting, setSubmitting] = useState(false);
 
-  function handleNameChange(e: ChangeEvent<HTMLInputElement>) {
+  function handleFirstNameChange(e: ChangeEvent<HTMLInputElement>) {
     const value = e.target.value;
-    setName(value);
-    const nameError = validateLeadName(value);
+    setFirstName(value);
     setErrors((prev) => ({
       ...prev,
-      fname: nameError ?? undefined,
-      lname: undefined,
+      fname: validateFname(value) ?? undefined,
+    }));
+  }
+
+  function handleLastNameChange(e: ChangeEvent<HTMLInputElement>) {
+    const value = e.target.value;
+    setLastName(value);
+    setErrors((prev) => ({
+      ...prev,
+      lname: validateLname(value) ?? undefined,
     }));
   }
 
@@ -78,10 +87,9 @@ export function LeadCaptureForm({
   function handleSubmit(e: React.SubmitEvent<HTMLFormElement>) {
     e.preventDefault();
 
-    const nameParts = name.trim().split(/\s+/).filter(Boolean);
     const nextErrors = validateLeadForm({
-      fname: nameParts[0] ?? "",
-      lname: nameParts.slice(1).join(" "),
+      fname: firstName,
+      lname: lastName,
       email,
       phone,
       termsAccepted,
@@ -94,7 +102,13 @@ export function LeadCaptureForm({
     setSubmitting(true);
 
     const utmSource = getHeallyUtmSource();
-    const redirectUrl = buildHeallyRedirectUrl({ name, email, phone, utmSource });
+    const fullName = `${firstName.trim()} ${lastName.trim()}`.trim();
+    const redirectUrl = buildHeallyRedirectUrl({
+      name: fullName,
+      email,
+      phone,
+      utmSource,
+    });
 
     try {
       sendGTMEvent({
@@ -131,24 +145,37 @@ export function LeadCaptureForm({
         </div>
       )}
 
-      <Input
-        id="leadName"
-        name="name"
-        label="Name (First & Last)"
-        placeholder="Jane Doe"
-        required
-        autoComplete="name"
-        value={name}
-        onChange={handleNameChange}
-        error={errors.fname ?? errors.lname}
-      />
+      <div className="grid grid-cols-2 gap-3">
+        <Input
+          id="leadFirstName"
+          name="firstName"
+          label="First Name"
+          placeholder="Ryan"
+          required
+          autoComplete="given-name"
+          value={firstName}
+          onChange={handleFirstNameChange}
+          error={errors.fname}
+        />
+        <Input
+          id="leadLastName"
+          name="lastName"
+          label="Last Name"
+          placeholder="Mitchell"
+          required
+          autoComplete="family-name"
+          value={lastName}
+          onChange={handleLastNameChange}
+          error={errors.lname}
+        />
+      </div>
 
       <Input
         id="leadEmail"
         name="email"
         type="email"
         label="Email"
-        placeholder="jane@example.com"
+        placeholder="ryanmitchell@gmail.com"
         required
         autoComplete="email"
         value={email}
@@ -176,7 +203,7 @@ export function LeadCaptureForm({
           <>
             I accept the{" "}
             <Link
-              href="/terms-of-use"
+              href="/our-policies/terms-of-use"
               className="font-medium text-brand-700 underline hover:text-brand-800"
             >
               Terms and Conditions

@@ -8,9 +8,9 @@ import { Container } from "@/components/ui/Container";
 import { PageHero } from "@/components/ui/PageHero";
 import { reviews } from "@/data/homepage";
 import { siteConfig } from "@/data/site";
-import { buildMetadata } from "@/lib/seo";
+import { buildHubMetadata } from "@/lib/og/hub-metadata";
 
-export const metadata: Metadata = buildMetadata({
+export const metadata: Metadata = buildHubMetadata({
   title: "Patient Reviews",
   description:
     "Read what Santa Ana and Orange County patients say about their medical marijuana card evaluation experience.",

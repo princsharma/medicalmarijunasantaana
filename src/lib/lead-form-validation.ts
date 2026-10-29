@@ -74,7 +74,7 @@ export function validateLeadForm(input: {
   email: string;
   phone: string;
   termsAccepted: boolean;
-  marketingConsent: boolean;
+  marketingConsent?: boolean;
 }): LeadFormErrors {
   const errors: LeadFormErrors = {};
 
@@ -92,10 +92,6 @@ export function validateLeadForm(input: {
 
   if (!input.termsAccepted) {
     errors.termsAccepted = "Please accept the Terms and Conditions to continue.";
-  }
-
-  if (!input.marketingConsent) {
-    errors.marketingConsent = "Please accept to continue.";
   }
 
   return errors;

@@ -3,13 +3,13 @@ import dynamic from "next/dynamic";
 import { HeroSection } from "@/components/sections/HeroSection";
 import { TrustMarquee } from "@/components/sections/TrustMarquee";
 import { faqItems, processSteps } from "@/data/homepage";
-import { buildMetadata } from "@/lib/seo";
+import { buildHubMetadata } from "@/lib/og/hub-metadata";
 
 const PAGE_TITLE = "How to Get a Medical Marijuana Card in Santa Ana, California";
 const PAGE_DESCRIPTION =
   "Apply for your medical marijuana card in Santa Ana online from licensed doctors. Same-day telehealth evaluation, plans from $55, money-back guarantee.";
 
-export const metadata = buildMetadata({
+export const metadata = buildHubMetadata({
   title: PAGE_TITLE,
   description: PAGE_DESCRIPTION,
   path: "/",

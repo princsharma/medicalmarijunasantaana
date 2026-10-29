@@ -16,9 +16,9 @@ export function HeroSection() {
       <div className="pointer-events-none absolute -right-20 top-1/4 size-72 rounded-full bg-brand-500/10 blur-3xl" />
 
       <Container className="relative py-16 md:py-24 lg:py-28">
-        <div className="grid items-center gap-12 lg:grid-cols-2 lg:gap-16 xl:gap-20">
-          {/* Visual */}
-          <div className="animate-fade-up relative lg:pr-4">
+        <div className="grid items-center gap-10 lg:grid-cols-2 lg:gap-14 xl:gap-16">
+          {/* Visual — left on desktop and first on mobile */}
+          <div className="animate-fade-up relative lg:pr-2">
             <HeroDoctorVisual />
           </div>
 

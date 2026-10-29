@@ -210,7 +210,7 @@ export function ApplicationForm({
             id="applicationName"
             name="name"
             label="Name (First & Last)"
-            placeholder="John Smith"
+            placeholder="Ryan Mitchell"
             required
             autoComplete="name"
             value={name}
@@ -223,7 +223,7 @@ export function ApplicationForm({
             name="email"
             type="email"
             label="Email"
-            placeholder="you@example.com"
+            placeholder="ryanmitchell@gmail.com"
             required
             autoComplete="email"
             value={email}
@@ -236,7 +236,7 @@ export function ApplicationForm({
             name="phone"
             type="tel"
             label="Phone Number"
-            placeholder="(714) 555-0199"
+            placeholder="123-456-7890"
             required
             autoComplete="tel"
             value={phone}
@@ -252,7 +252,7 @@ export function ApplicationForm({
               <>
                 I accept the{" "}
                 <Link
-                  href="/terms-of-use"
+                  href="/our-policies/terms-of-use"
                   className="text-brand-700 underline hover:text-brand-800"
                 >
                   Terms and Conditions

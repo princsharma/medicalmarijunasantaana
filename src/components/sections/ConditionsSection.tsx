@@ -1,5 +1,7 @@
 import {
   Activity,
+  Apple,
+  Bandage,
   Bone,
   Brain,
   CheckCircle2,
@@ -8,12 +10,10 @@ import {
   Frown,
   HeartPulse,
   Info,
-  Scale,
-  Shield,
+  Ribbon,
   Sparkles,
   Stethoscope,
-  UtensilsCrossed,
-  Zap,
+  TrendingDown,
 } from "lucide-react";
 import type { LucideIcon } from "lucide-react";
 import { conditionsSectionContent, qualifyingConditions } from "@/data/homepage";
@@ -24,15 +24,15 @@ import { cn } from "@/lib/utils";
 const conditionIcons: Record<string, LucideIcon> = {
   Arthritis: Bone,
   Cancer: Dna,
-  "Chronic Pain": Zap,
+  "Chronic Pain": Bandage,
   Glaucoma: Eye,
-  "HIV/AIDS": Shield,
+  "HIV/AIDS": Ribbon,
   Migraine: Brain,
   Seizures: Activity,
   "Severe Nausea": Frown,
   "Muscle Spasms": HeartPulse,
-  Cachexia: Scale,
-  Anorexia: UtensilsCrossed,
+  Cachexia: TrendingDown,
+  Anorexia: Apple,
   Fibromyalgia: Stethoscope,
 };
 
