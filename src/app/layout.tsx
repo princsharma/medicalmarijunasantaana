@@ -6,7 +6,7 @@ import { Header } from "@/components/layout/Header";
 import { ApplicationPopupProvider } from "@/components/providers/ApplicationPopupProvider";
 import { OrganizationJsonLd } from "@/components/seo/JsonLd";
 import { siteConfig } from "@/data/site";
-import { getMetadataBaseUrl } from "@/lib/seo";
+import { getMetadataBaseUrl, getAbsoluteOgImageUrl } from "@/lib/seo";
 import "./globals.css";
 
 const gtmId = process.env.NEXT_PUBLIC_GTM_ID ?? siteConfig.gtmId;
@@ -52,7 +52,7 @@ export const metadata: Metadata = {
     description: siteConfig.description,
     images: [
       {
-        url: "/OG_Images/home feature.webp",
+        url: getAbsoluteOgImageUrl("/og-images/home-feature.webp"),
         width: 1200,
         height: 630,
         alt: siteConfig.name,
@@ -64,7 +64,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: siteConfig.name,
     description: siteConfig.description,
-    images: ["/OG_Images/home feature.webp"],
+    images: [getAbsoluteOgImageUrl("/og-images/home-feature.webp")],
   },
 
   verification: {

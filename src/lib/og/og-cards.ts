@@ -1,16 +1,16 @@
 /** Static Open Graph cards in `public/OG_Images/`. */
-export const DEFAULT_OG_CARD_PATH = "/OG_Images/home feature.webp";
+export const DEFAULT_OG_CARD_PATH = "/og-images/home-feature.webp";
 
 const HUB_OG_CARD_PATHS: Record<string, string> = {
   "/our-authors":
-    "/OG_Images/doctor conducting a telehealth consultation.webp",
+    "/og-images/doctor conducting a telehealth consultation.webp",
   "/contact-us":
-    "/OG_Images/contributors collaborating and sharing ideas around a table.webp",
+    "/og-images/contributors collaborating and sharing ideas around a table.webp",
   "/blog":
-    "/OG_Images/laptop with an open notebook and pencil on a desk.webp",
-  "/about-us": "/OG_Images/doctor conducting a telehealth consultation.webp",
+    "/og-images/laptop with an open notebook and pencil on a desk.webp",
+  "/about-us": "/og-images/doctor conducting a telehealth consultation.webp",
   "/doctors":
-    "/OG_Images/professional talking on mobile phone beside a laptop.webp",
+    "/og-images/professional talking on mobile phone beside a laptop.webp",
 };
 
 function normalizePagePath(pagePath: string) {
