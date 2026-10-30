@@ -8,6 +8,7 @@ import {
   policyPages,
   POLICY_HUB_PATH,
 } from "@/data/policies";
+import { DEFAULT_OG_CARD_PATH } from "@/lib/og/og-cards";
 import { buildMetadata } from "@/lib/seo";
 
 type PageProps = {
@@ -27,6 +28,8 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
     title: policy.title,
     description: policy.description,
     path: getPolicyHref(policy.slug),
+    ogImage: DEFAULT_OG_CARD_PATH,
+    ogImageDimensions: "auto",
   });
 }
 

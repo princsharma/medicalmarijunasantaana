@@ -93,9 +93,9 @@ export const blogPosts: BlogPost[] = [
     reviewer: "Rick Rieser",
     reviewerRole: "M.D., Licensed California Physician",
     reviewerSpecialist: "Medical Doctor (MD)",
-    authorFeatureImage: "/heroSection.webp",
+    authorFeatureImage: "/hero/medical-marijuana-santa-ana.webp",
     reviewerImage: "/dr-rick-rieser.webp",
-    image: "/is-marijuana-legal-california.png",
+    image: "/og-images/laptop with an open notebook and pencil on a desk.webp",
     featured: true,
     content: [
       {

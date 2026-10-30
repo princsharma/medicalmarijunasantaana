@@ -6,6 +6,7 @@ import { CtaSection } from "@/components/sections/CtaSection";
 import { Breadcrumbs } from "@/components/ui/Breadcrumbs";
 import { Button } from "@/components/ui/Button";
 import { Container } from "@/components/ui/Container";
+import { HubPageHero, HubSectionIntro } from "@/components/ui/HubPageHero";
 import { blogPosts } from "@/data/blog";
 import { contributors, contributorsHubContent } from "@/data/contributors";
 import { doctors } from "@/data/doctors";
@@ -25,61 +26,27 @@ export default function OurAuthorsPage() {
     <>
       <Breadcrumbs items={[{ label: "Our Authors" }]} />
 
-      <section className="relative overflow-hidden bg-[#f5f6f0] py-16 sm:py-20 lg:py-24">
-        <div
-          className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_80%_55%_at_50%_-5%,rgba(20,184,166,0.12),transparent)]"
-          aria-hidden="true"
-        />
-        <div
-          className="pointer-events-none absolute inset-0 bg-dot-pattern opacity-[0.32]"
-          aria-hidden="true"
-        />
+      <HubPageHero
+        eyebrow={eyebrow}
+        badgeIcon={PenLine}
+        title={title}
+        description={description}
+        stats={[
+          { icon: Users, label: `${contributors.length} authors` },
+          { icon: Stethoscope, label: `${doctors.length} physician reviewers` },
+          { icon: FileCheck2, label: `${blogPosts.length} published guides` },
+          { icon: ShieldCheck, label: "Physician-reviewed" },
+        ]}
+      />
 
-        <Container className="relative">
-          <div className="mx-auto max-w-3xl text-center">
-            <span className="inline-flex items-center gap-2 rounded-full border border-brand-200/80 bg-white/90 px-4 py-2 text-xs font-bold uppercase tracking-[0.16em] text-brand-800 shadow-sm">
-              <PenLine className="size-3.5 text-brand-600" aria-hidden="true" />
-              {eyebrow}
-            </span>
-            <h1 className="mt-6 font-display text-4xl font-bold leading-[1.08] tracking-tight text-[#123c31] sm:text-5xl lg:text-[3.25rem]">
-              {title}
-            </h1>
-            <p className="mt-5 text-base leading-relaxed text-neutral-600 sm:text-lg">
-              {description}
-            </p>
-            <div className="mt-8 flex flex-wrap items-center justify-center gap-3">
-              {[
-                { icon: Users, label: `${contributors.length} authors` },
-                { icon: Stethoscope, label: `${doctors.length} physician reviewers` },
-                { icon: FileCheck2, label: `${blogPosts.length} published guides` },
-                { icon: ShieldCheck, label: "Physician-reviewed" },
-              ].map(({ icon: Icon, label }) => (
-                <span
-                  key={label}
-                  className="inline-flex items-center gap-2 rounded-full border border-[#dce6dd] bg-white/95 px-4 py-2.5 text-sm font-semibold text-[#15503f] shadow-sm"
-                >
-                  <Icon className="size-4 text-brand-600" aria-hidden="true" />
-                  {label}
-                </span>
-              ))}
-            </div>
-          </div>
-        </Container>
-      </section>
-
-      <section className="bg-white py-16 sm:py-20">
+      <section className="relative bg-white py-16 sm:py-20">
         <Container>
-          <p className="text-center text-xs font-bold uppercase tracking-[0.17em] text-brand-700">
-            Medical writers
-          </p>
-          <h2 className="mt-3 text-center font-display text-3xl font-bold tracking-tight text-[#123c31] sm:text-4xl">
-            Our authors
-          </h2>
-          <p className="mx-auto mt-3 max-w-2xl text-center text-base leading-relaxed text-neutral-600">
-            Patient education for Santa Ana and Orange County, written in plain language and
-            grounded in California medical marijuana rules.
-          </p>
-          <div className="mx-auto mt-12 grid max-w-6xl gap-8 lg:grid-cols-2">
+          <HubSectionIntro
+            eyebrow="Medical writers"
+            title="Our authors"
+            description="Patient education for Santa Ana and Orange County, written in plain language and grounded in California medical marijuana rules."
+          />
+          <div className="mx-auto grid max-w-6xl gap-8 lg:grid-cols-2">
             {contributors.map((contributor) => (
               <ContributorCard key={contributor.slug} contributor={contributor} />
             ))}
@@ -89,22 +56,17 @@ export default function OurAuthorsPage() {
 
       <section className="border-t border-[#dce6dd] bg-[#f5f6f0] py-16 sm:py-20">
         <Container>
-          <p className="text-center text-xs font-bold uppercase tracking-[0.17em] text-brand-700">
-            Medical reviewers
-          </p>
-          <h2 className="mt-3 text-center font-display text-3xl font-bold tracking-tight text-[#123c31] sm:text-4xl">
-            Physician review before we publish
-          </h2>
-          <p className="mx-auto mt-3 max-w-2xl text-center text-base leading-relaxed text-neutral-600">
-            Clinical articles are reviewed by California-licensed physicians. Editorial review is
-            separate from any individual patient evaluation.
-          </p>
-          <div className="mx-auto mt-12 grid max-w-6xl gap-8 lg:grid-cols-2">
+          <HubSectionIntro
+            eyebrow="Medical reviewers"
+            title="Physician review before we publish"
+            description="Clinical articles are reviewed by California-licensed physicians. Editorial review is separate from any individual patient evaluation."
+          />
+          <div className="mx-auto grid max-w-6xl gap-8 lg:grid-cols-2">
             {doctors.map((doctor) => (
               <DoctorCard key={doctor.slug} doctor={doctor} />
             ))}
           </div>
-          <div className="mt-8 text-center">
+          <div className="mt-10 text-center">
             <Button href="/doctors" variant="outline" className="rounded-full border-brand-200">
               Meet all physicians
             </Button>

@@ -1,4 +1,4 @@
-/** Static Open Graph cards in `public/OG_Images/`. */
+/** Static Open Graph cards in `public/og-images/`. */
 export const DEFAULT_OG_CARD_PATH = "/og-images/home-feature.webp";
 
 const HUB_OG_CARD_PATHS: Record<string, string> = {
@@ -8,7 +8,8 @@ const HUB_OG_CARD_PATHS: Record<string, string> = {
     "/og-images/contributors collaborating and sharing ideas around a table.webp",
   "/blog":
     "/og-images/laptop with an open notebook and pencil on a desk.webp",
-  "/about-us": "/og-images/doctor conducting a telehealth consultation.webp",
+  "/about-us":
+    "/og-images/hand holding a pen over an open notebook.webp",
   "/doctors":
     "/og-images/professional talking on mobile phone beside a laptop.webp",
 };

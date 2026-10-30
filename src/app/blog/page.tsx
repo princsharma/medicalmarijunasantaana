@@ -1,10 +1,11 @@
 import type { Metadata } from "next";
+import { ArrowRight, BookOpen, FileText, Sparkles } from "lucide-react";
 import { CtaSection } from "@/components/sections/CtaSection";
 import { BlogPostCard } from "@/components/blog/BlogPostCard";
 import { Breadcrumbs } from "@/components/ui/Breadcrumbs";
 import { Button } from "@/components/ui/Button";
 import { Container } from "@/components/ui/Container";
-import { PageHero } from "@/components/ui/PageHero";
+import { HubPageHero, HubSectionIntro } from "@/components/ui/HubPageHero";
 import { blogPosts, getFeaturedPost } from "@/data/blog";
 import { buildHubMetadata } from "@/lib/og/hub-metadata";
 
@@ -22,31 +23,72 @@ export default function BlogPage() {
   return (
     <>
       <Breadcrumbs items={[{ label: "Blog" }]} />
-      <PageHero
-        eyebrow="Patient Guides"
-        title="Your Guide to Medical Marijuana in California"
+
+      <HubPageHero
+        eyebrow="Patient guides"
+        badgeIcon={BookOpen}
+        title="Your guide to medical marijuana in California"
         description="Expert articles on MMIC rules, qualifying conditions, patient rights, and what Santa Ana patients need to know."
-      >
-        <Button href="/#apply" variant="accent" size="lg">
-          Get Your Card
-        </Button>
-      </PageHero>
+        stats={[
+          { icon: FileText, label: `${blogPosts.length} in-depth guides` },
+          { icon: Sparkles, label: "Updated for 2026" },
+        ]}
+        actions={
+          <>
+            <Button
+              href="/#apply"
+              size="lg"
+              className="rounded-full bg-[#123c31] px-7 shadow-lg shadow-[#123c31]/15 hover:bg-[#0c3027]"
+            >
+              Get your card
+              <ArrowRight className="size-4" aria-hidden="true" />
+            </Button>
+            {featured ? (
+              <Button
+                href={`/blog/${featured.slug}`}
+                variant="outline"
+                className="rounded-full border-[#dce6dd] bg-white/90"
+              >
+                Read featured guide
+              </Button>
+            ) : null}
+          </>
+        }
+      />
 
-      <Container className="-mt-10 relative pb-16 md:pb-24">
-        {featured ? (
-          <div className="mb-12">
-            <BlogPostCard post={featured} featured />
-          </div>
-        ) : null}
+      <section className="relative bg-white pb-16 pt-4 md:pb-24 md:pt-6">
+        <Container>
+          {featured ? (
+            <>
+              <HubSectionIntro
+                eyebrow="Featured"
+                title="Start here"
+                description="Our most-read guide for California patients navigating medical and recreational rules."
+                className="mb-8 sm:mb-10"
+              />
+              <div className="mb-14">
+                <BlogPostCard post={featured} featured />
+              </div>
+            </>
+          ) : null}
 
-        {otherPosts.length > 0 ? (
-          <div className="grid gap-6 md:grid-cols-2">
-            {otherPosts.map((post) => (
-              <BlogPostCard key={post.slug} post={post} />
-            ))}
-          </div>
-        ) : null}
-      </Container>
+          {otherPosts.length > 0 ? (
+            <>
+              <HubSectionIntro
+                eyebrow="All articles"
+                title="More patient resources"
+                description="Browse guides written for clarity — no hype, no product sales."
+                className="mb-8 sm:mb-10"
+              />
+              <div className="grid gap-6 md:grid-cols-2">
+                {otherPosts.map((post) => (
+                  <BlogPostCard key={post.slug} post={post} />
+                ))}
+              </div>
+            </>
+          ) : null}
+        </Container>
+      </section>
 
       <CtaSection />
     </>

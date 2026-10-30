@@ -1,9 +1,10 @@
 import type { Metadata } from "next";
-import { Clock3, Mail, MapPin, Phone, ShieldCheck } from "lucide-react";
+import { Clock3, Mail, MapPin, MessageCircle, Phone, ShieldCheck } from "lucide-react";
 import { ContactForm } from "@/components/forms/ContactForm";
 import { OfficeMapSection } from "@/components/sections/OfficeMapSection";
 import { Breadcrumbs } from "@/components/ui/Breadcrumbs";
 import { Container } from "@/components/ui/Container";
+import { HubPageHero } from "@/components/ui/HubPageHero";
 import { contactPageContent } from "@/data/contact";
 import { buildHubMetadata } from "@/lib/og/hub-metadata";
 
@@ -24,27 +25,22 @@ export default function ContactUsPage() {
   return (
     <>
       <Breadcrumbs items={[{ label: "Contact Us" }]} />
-      <div className="relative overflow-hidden bg-neutral-50 pb-14 pt-12 md:pb-20 md:pt-16">
-        <div className="pointer-events-none absolute -right-32 -top-40 size-[28rem] rounded-full bg-brand-100/70 blur-3xl" />
-        <Container className="relative">
-          <div className="max-w-3xl">
-            <p className="text-sm font-bold uppercase tracking-[0.18em] text-brand-700">
-              Friendly help, right here in Santa Ana
-            </p>
-            <h1 className="mt-4 font-display text-4xl font-bold tracking-tight text-neutral-950 sm:text-5xl md:text-6xl">
-              Let&;s talk.
-            </h1>
-            <p className="mt-5 max-w-2xl text-lg leading-relaxed text-neutral-600">
-              Have a question about your medical marijuana card? Tell us what you need and our
-              team will help you find the right next step.
-            </p>
-          </div>
-        </Container>
-      </div>
 
-      <Container className="relative -mt-4 pb-16 md:-mt-6 md:pb-24">
+      <HubPageHero
+        eyebrow="Friendly help, right here in Santa Ana"
+        badgeIcon={MessageCircle}
+        title="Let's talk."
+        description={contactPageContent.subtitle}
+        stats={[
+          { icon: Phone, label: "Phone support" },
+          { icon: Mail, label: "Email within 1 business day" },
+          { icon: MapPin, label: "Santa Ana office" },
+        ]}
+      />
+
+      <Container className="relative -mt-6 pb-16 md:-mt-10 md:pb-24">
         <div className="grid items-stretch gap-6 lg:grid-cols-[0.85fr_1.15fr] lg:gap-8">
-          <aside className="rounded-3xl bg-brand-950 p-7 text-white shadow-elevated sm:p-9">
+          <aside className="rounded-3xl bg-[#123c31] p-7 text-white shadow-elevated sm:p-9">
             <p className="text-sm font-bold uppercase tracking-[0.16em] text-brand-200">
               Reach our team
             </p>
@@ -62,7 +58,7 @@ export default function ContactUsPage() {
 
                 return (
                   <div key={method.title} className="flex gap-4">
-                    <span className="flex size-11 shrink-0 items-center justify-center rounded-xl bg-white/10 text-brand-100">
+                    <span className="flex size-11 shrink-0 items-center justify-center rounded-xl bg-white/10 text-brand-100 ring-1 ring-white/10">
                       <Icon className="size-5" aria-hidden="true" />
                     </span>
                     <div className="min-w-0">
@@ -101,17 +97,17 @@ export default function ContactUsPage() {
             </div>
           </aside>
 
-          <section className="overflow-hidden rounded-3xl border border-neutral-200 bg-white shadow-card">
-            <div className="border-b border-neutral-100 px-6 py-6 sm:px-9 sm:py-8">
+          <section className="overflow-hidden rounded-3xl border border-[#dce6dd] bg-white shadow-card">
+            <div className="border-b border-neutral-100 bg-gradient-to-r from-[#f8faf6] to-white px-6 py-6 sm:px-9 sm:py-8">
               <div className="flex items-start gap-4">
-                <span className="hidden size-12 shrink-0 items-center justify-center rounded-2xl bg-brand-50 text-brand-700 sm:flex">
+                <span className="hidden size-12 shrink-0 items-center justify-center rounded-2xl bg-brand-50 text-brand-700 ring-1 ring-brand-100 sm:flex">
                   <Mail className="size-5" aria-hidden="true" />
                 </span>
                 <div>
                   <p className="text-sm font-bold uppercase tracking-[0.14em] text-brand-700">
                     Send us a message
                   </p>
-                  <h2 className="mt-1 font-display text-2xl font-bold tracking-tight text-neutral-950">
+                  <h2 className="mt-1 font-display text-2xl font-bold tracking-tight text-[#123c31]">
                     How can we help?
                   </h2>
                   <p className="mt-2 text-sm leading-relaxed text-neutral-600">
@@ -124,7 +120,7 @@ export default function ContactUsPage() {
               <ContactForm />
               <p className="mt-5 flex items-start gap-2 text-xs leading-relaxed text-neutral-500">
                 <ShieldCheck className="mt-0.5 size-4 shrink-0 text-brand-700" aria-hidden="true" />
-                Please don't include sensitive medical information in this form.
+                Please don&apos;t include sensitive medical information in this form.
               </p>
             </div>
           </section>

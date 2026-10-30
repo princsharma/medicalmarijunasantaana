@@ -2,22 +2,52 @@ import type { Metadata } from "next";
 import { siteConfig } from "@/data/site";
 import { getCanonicalOrigin, getCanonicalUrl } from "@/lib/url-normalization";
 
-/** Site origin for metadata (use localhost in local `.env` for OG debuggers). */
+/** Encode spaces and special chars in static `public/` paths (e.g. og-images). */
+function encodePublicAssetPath(imagePath: string) {
+  const normalized = imagePath.startsWith("/") ? imagePath : `/${imagePath}`;
+  return normalized
+    .split("/")
+    .map((segment, index) => (index === 0 || !segment ? segment : encodeURIComponent(segment)))
+    .join("/");
+}
+
+/** Site origin for metadata. In dev, prefer local host (see root layout `generateMetadata`). */
 export function getMetadataBaseUrl() {
+  if (process.env.NODE_ENV === "development") {
+    const devSite = process.env.NEXT_PUBLIC_DEV_SITE_URL?.trim();
+    if (devSite) {
+      return new URL(devSite.endsWith("/") ? devSite : `${devSite}/`);
+    }
+    const port = process.env.PORT?.trim() || "3000";
+    return new URL(`http://localhost:${port}/`);
+  }
+
   const fromEnv = process.env.NEXT_PUBLIC_SITE_URL?.trim();
   if (fromEnv) {
     return new URL(fromEnv.endsWith("/") ? fromEnv : `${fromEnv}/`);
   }
-  if (process.env.NODE_ENV === "development") {
-    return new URL("https://medicalmarijunasantaana.vercel.app/");
-  }
   return new URL(getCanonicalOrigin() + "/");
 }
 
+/** Request-aware base URL for local OG previews (matches actual `next dev` port). */
+export async function getDevMetadataBaseUrlFromRequest() {
+  const { headers } = await import("next/headers");
+  const headerList = await headers();
+  const host =
+    headerList.get("x-forwarded-host") ?? headerList.get("host") ?? "localhost:3000";
+  return new URL(`http://${host}/`);
+}
+
 /** Absolute URL for OG/Twitter images (API routes, static files, etc.). */
-export function getAbsoluteOgImageUrl(imagePath: string) {
-  const normalized = imagePath.startsWith("/") ? imagePath : `/${imagePath}`;
-  return new URL(normalized, getMetadataBaseUrl()).toString();
+export function getAbsoluteOgImageUrl(imagePath: string, baseUrl?: URL | string) {
+  const encodedPath = encodePublicAssetPath(imagePath);
+
+  if (process.env.NODE_ENV === "development" && !baseUrl) {
+    return encodedPath;
+  }
+
+  const base = baseUrl ?? getMetadataBaseUrl();
+  return new URL(encodedPath, base).toString();
 }
 
 /** Path to the segment's generated `opengraph-image` (1200×630). */
@@ -98,7 +128,6 @@ export function buildMetadata({
   return {
     title: absoluteTitle ? { absolute: title } : title,
     description,
-    metadataBase: getMetadataBaseUrl(),
     alternates: { canonical: url },
     robots: noIndex
       ? { index: false, follow: false }

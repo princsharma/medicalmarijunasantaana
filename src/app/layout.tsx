@@ -6,7 +6,11 @@ import { Header } from "@/components/layout/Header";
 import { ApplicationPopupProvider } from "@/components/providers/ApplicationPopupProvider";
 import { OrganizationJsonLd } from "@/components/seo/JsonLd";
 import { siteConfig } from "@/data/site";
-import { getMetadataBaseUrl, getAbsoluteOgImageUrl } from "@/lib/seo";
+import {
+  getAbsoluteOgImageUrl,
+  getDevMetadataBaseUrlFromRequest,
+  getMetadataBaseUrl,
+} from "@/lib/seo";
 import "./globals.css";
 
 const gtmId = process.env.NEXT_PUBLIC_GTM_ID ?? siteConfig.gtmId;
@@ -30,47 +34,59 @@ const geistMono = Geist_Mono({
   subsets: ["latin"],
 });
 
-export const metadata: Metadata = {
-  metadataBase: getMetadataBaseUrl(),
+export async function generateMetadata(): Promise<Metadata> {
+  const metadataBase =
+    process.env.NODE_ENV === "development"
+      ? await getDevMetadataBaseUrlFromRequest()
+      : getMetadataBaseUrl();
 
-  title: {
-    default: siteConfig.name,
-    template: `%s | ${siteConfig.name}`,
-  },
+  const defaultOgImage = getAbsoluteOgImageUrl(
+    "/og-images/home-feature.webp",
+    metadataBase,
+  );
 
-  description: siteConfig.description,
+  return {
+    metadataBase,
 
-  icons: {
-    icon: "/favicon.ico",
-  },
+    title: {
+      default: siteConfig.name,
+      template: `%s | ${siteConfig.name}`,
+    },
 
-  openGraph: {
-    type: "website",
-    locale: "en_US",
-    siteName: siteConfig.name,
-    title: siteConfig.name,
     description: siteConfig.description,
-    images: [
-      {
-        url: getAbsoluteOgImageUrl("/og-images/home-feature.webp"),
-        width: 1200,
-        height: 630,
-        alt: siteConfig.name,
-      },
-    ],
-  },
 
-  twitter: {
-    card: "summary_large_image",
-    title: siteConfig.name,
-    description: siteConfig.description,
-    images: [getAbsoluteOgImageUrl("/og-images/home-feature.webp")],
-  },
+    icons: {
+      icon: "/favicon.ico",
+    },
 
-  verification: {
-    google: googleSiteVerification,
-  },
-};
+    openGraph: {
+      type: "website",
+      locale: "en_US",
+      siteName: siteConfig.name,
+      title: siteConfig.name,
+      description: siteConfig.description,
+      images: [
+        {
+          url: defaultOgImage,
+          width: 1200,
+          height: 630,
+          alt: siteConfig.name,
+        },
+      ],
+    },
+
+    twitter: {
+      card: "summary_large_image",
+      title: siteConfig.name,
+      description: siteConfig.description,
+      images: [defaultOgImage],
+    },
+
+    verification: {
+      google: googleSiteVerification,
+    },
+  };
+}
 
 export const viewport: Viewport = {
   width: "device-width",
