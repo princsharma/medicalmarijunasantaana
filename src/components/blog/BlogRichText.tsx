@@ -1,5 +1,6 @@
 import Link from "next/link";
 import type { BlogBlock, BlogTextLink } from "@/data/blog";
+import { headingToId } from "@/data/blog";
 import { Button } from "@/components/ui/Button";
 import { Accordion } from "@/components/ui/Accordion";
 
@@ -47,15 +48,18 @@ export function BlogRichText({ blocks }: { blocks: BlogBlock[] }) {
             return (
               <h2
                 key={index}
-                id={block.text.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "")}
-                className="scroll-mt-28 font-display text-2xl font-bold text-neutral-900 sm:text-3xl"
+                id={headingToId(block.text)}
+                className="scroll-mt-32 font-display text-2xl font-bold text-[#123c31] sm:text-3xl"
               >
                 {block.text}
               </h2>
             );
           case "h3":
             return (
-              <h3 key={index} className="font-display text-xl font-bold text-neutral-900">
+              <h3
+                key={index}
+                className="font-display text-xl font-bold text-[#15503f]"
+              >
                 {block.text}
               </h3>
             );
@@ -73,7 +77,7 @@ export function BlogRichText({ blocks }: { blocks: BlogBlock[] }) {
                 key={index}
                 className="rounded-2xl border border-brand-200/60 bg-brand-50/50 p-6"
               >
-                <p className="mb-3 text-sm font-bold uppercase tracking-widest text-brand-800">
+                <p className="mb-3 text-xs font-bold uppercase tracking-[0.16em] text-[#15503f]">
                   Key Points
                 </p>
                 <ul className="space-y-2">

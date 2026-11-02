@@ -94,7 +94,7 @@ export const blogPosts: BlogPost[] = [
     reviewerRole: "M.D., Licensed California Physician",
     reviewerSpecialist: "Medical Doctor (MD)",
     authorFeatureImage: "/hero/medical-marijuana-santa-ana.webp",
-    reviewerImage: "/dr-rick-rieser.webp",
+    reviewerImage: "/doctors/dr-rick-rieser.webp",
     image: "/og-images/laptop with an open notebook and pencil on a desk.webp",
     featured: true,
     content: [
@@ -352,7 +352,7 @@ export function getPostHeadings(post: BlogPost) {
   return post.content
     .filter(
       (block): block is Extract<BlogBlock, { type: "h2" }> =>
-        block.type === "h2" && block.text !== "Key Points"
+        block.type === "h2" && block.text !== "Key Points" && block.text !== "FAQs"
     )
     .map((block) => ({
       text: block.text,
