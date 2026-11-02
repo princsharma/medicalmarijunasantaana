@@ -20,7 +20,7 @@ import { contactPageContent } from "@/data/contact";
 import { siteConfig } from "@/data/site";
 import { buildHubMetadata } from "@/lib/og/hub-metadata";
 
-const CONTACT_HUB_HERO = "/contact/contact-hub.png";
+const CONTACT_HUB_HERO = "/contact/contact-hub.webp";
 
 export async function generateMetadata(): Promise<Metadata> {
   return buildHubMetadata({
