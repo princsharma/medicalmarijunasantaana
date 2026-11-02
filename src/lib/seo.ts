@@ -11,7 +11,7 @@ function encodePublicAssetPath(imagePath: string) {
     .join("/");
 }
 
-/** Site origin for metadata. In dev, prefer local host (see root layout `generateMetadata`). */
+/** Configured site origin. Used for canonical URLs, not for share-image hosts. */
 export function getMetadataBaseUrl() {
   if (process.env.NODE_ENV === "development") {
     const devSite = process.env.NEXT_PUBLIC_DEV_SITE_URL?.trim();
@@ -29,13 +29,40 @@ export function getMetadataBaseUrl() {
   return new URL(getCanonicalOrigin() + "/");
 }
 
-/** Request-aware base URL for local OG previews (matches actual `next dev` port). */
-export async function getDevMetadataBaseUrlFromRequest() {
-  const { headers } = await import("next/headers");
-  const headerList = await headers();
-  const host =
-    headerList.get("x-forwarded-host") ?? headerList.get("host") ?? "localhost:3000";
-  return new URL(`http://${host}/`);
+/**
+ * Origin of the host that served this request.
+ * Share cards must use this host. `NEXT_PUBLIC_SITE_URL` can point at a domain
+ * that is not attached to the deployment (previews, DNS not live), which makes
+ * crawlers request an image URL that never loads.
+ */
+export async function getRequestMetadataBaseUrl() {
+  try {
+    const { headers } = await import("next/headers");
+    const headerList = await headers();
+    const rawHost =
+      headerList.get("x-forwarded-host") ?? headerList.get("host") ?? "";
+    const host = rawHost.split(",")[0]?.trim();
+    if (host) {
+      const bare = host.split(":")[0]?.toLowerCase() ?? "";
+      const forwarded = headerList.get("x-forwarded-proto")?.split(",")[0]?.trim();
+      const protocol =
+        bare === "localhost" || bare === "127.0.0.1"
+          ? "http"
+          : forwarded === "http" || forwarded === "https"
+            ? forwarded
+            : "https";
+      return new URL(`${protocol}://${host}/`);
+    }
+  } catch {
+    // No request during a static prerender pass.
+  }
+
+  const vercelHost = process.env.VERCEL_URL?.trim().replace(/^https?:\/\//, "");
+  if (vercelHost) {
+    return new URL(`https://${vercelHost}/`);
+  }
+
+  return getMetadataBaseUrl();
 }
 
 /** Absolute URL for OG/Twitter images (API routes, static files, etc.). */
@@ -74,7 +101,13 @@ type PageSeoInput = {
   ogImageDimensions?: "auto";
 };
 
-export function buildMetadata({
+function absolutePageUrl(base: URL, path = "") {
+  const normalized = path.startsWith("/") ? path : path ? `/${path}` : "/";
+  if (normalized === "/") return new URL("/", base).toString();
+  return new URL(normalized.replace(/\/+$/, ""), base).toString();
+}
+
+export async function buildMetadata({
   title,
   description,
   path = "",
@@ -87,11 +120,12 @@ export function buildMetadata({
   authors,
   imageAlt,
   ogImageDimensions,
-}: PageSeoInput): Metadata {
-  const url = getCanonicalUrl(path);
+}: PageSeoInput): Promise<Metadata> {
+  const metadataBase = await getRequestMetadataBaseUrl();
+  const url = absolutePageUrl(metadataBase, path);
   const imagePath =
     ogImage === false ? undefined : (ogImage ?? siteConfig.ogImage);
-  const image = imagePath ? getAbsoluteOgImageUrl(imagePath) : undefined;
+  const image = imagePath ? getAbsoluteOgImageUrl(imagePath, metadataBase) : undefined;
   const resolvedImageAlt =
     imageAlt ?? (absoluteTitle ? title : `${title} | ${siteConfig.name}`);
   const imageMeta = image
@@ -128,7 +162,7 @@ export function buildMetadata({
   return {
     title: absoluteTitle ? { absolute: title } : title,
     description,
-    alternates: { canonical: url },
+    alternates: { canonical: getCanonicalUrl(path) },
     robots: noIndex
       ? { index: false, follow: false }
       : { index: true, follow: true },

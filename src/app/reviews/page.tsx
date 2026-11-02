@@ -10,12 +10,14 @@ import { reviews } from "@/data/homepage";
 import { siteConfig } from "@/data/site";
 import { buildHubMetadata } from "@/lib/og/hub-metadata";
 
-export const metadata: Metadata = buildHubMetadata({
-  title: "Patient Reviews",
-  description:
-    "Read what Santa Ana and Orange County patients say about their medical marijuana card evaluation experience.",
-  path: "/reviews",
-});
+export async function generateMetadata(): Promise<Metadata> {
+  return buildHubMetadata({
+    title: "Patient Reviews",
+    description:
+      "Read what Santa Ana and Orange County patients say about their medical marijuana card evaluation experience.",
+    path: "/reviews",
+  });
+}
 
 export default function ReviewsPage() {
   return (

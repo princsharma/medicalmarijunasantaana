@@ -8,12 +8,14 @@ import { faqItems } from "@/data/homepage";
 import { siteConfig } from "@/data/site";
 import { buildHubMetadata } from "@/lib/og/hub-metadata";
 
-export const metadata: Metadata = buildHubMetadata({
-  title: "FAQ",
-  description:
-    "Answers to common questions about getting a medical marijuana card in Santa Ana — pricing, timing, privacy, and eligibility.",
-  path: "/faq",
-});
+export async function generateMetadata(): Promise<Metadata> {
+  return buildHubMetadata({
+    title: "FAQ",
+    description:
+      "Answers to common questions about getting a medical marijuana card in Santa Ana — pricing, timing, privacy, and eligibility.",
+    path: "/faq",
+  });
+}
 
 const faqJsonLd = {
   "@context": "https://schema.org",

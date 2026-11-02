@@ -1,7 +1,19 @@
 import type { Metadata } from "next";
-import { Check, CircleCheck, CircleX, MapPin, Sparkles, Video, X } from "lucide-react";
+import Image from "next/image";
+import {
+  ArrowRight,
+  Check,
+  CircleCheck,
+  CircleX,
+  HeartHandshake,
+  MapPin,
+  Sparkles,
+  Video,
+  X,
+} from "lucide-react";
 import { CtaSection } from "@/components/sections/CtaSection";
 import { Breadcrumbs } from "@/components/ui/Breadcrumbs";
+import { Button } from "@/components/ui/Button";
 import { Card } from "@/components/ui/Card";
 import { Container } from "@/components/ui/Container";
 import { HubPageHero, HubSectionIntro } from "@/components/ui/HubPageHero";
@@ -13,12 +25,16 @@ import {
 } from "@/data/about";
 import { buildHubMetadata } from "@/lib/og/hub-metadata";
 
-export const metadata: Metadata = buildHubMetadata({
-  title: "About Us",
-  description:
-    "Learn how Medical Marijuana Card Santa Ana connects Orange County patients with licensed California physicians for telehealth medical marijuana evaluations.",
-  path: "/about-us",
-});
+const ABOUT_HUB_HERO = "/about/telehealth-consultation-hero.png";
+
+export async function generateMetadata(): Promise<Metadata> {
+  return buildHubMetadata({
+    title: "About Us",
+    description:
+      "Learn how Medical Marijuana Card Santa Ana connects Orange County patients with licensed California physicians for telehealth medical marijuana evaluations.",
+    path: "/about-us",
+  });
+}
 
 export default function AboutUsPage() {
   return (
@@ -26,6 +42,7 @@ export default function AboutUsPage() {
       <Breadcrumbs items={[{ label: "About Us" }]} />
 
       <HubPageHero
+        align="split"
         eyebrow={aboutContent.eyebrow}
         badgeIcon={Sparkles}
         title={aboutContent.title}
@@ -35,6 +52,62 @@ export default function AboutUsPage() {
           { icon: Video, label: "100% telehealth" },
           { icon: CircleCheck, label: "Licensed CA physicians" },
         ]}
+        actions={
+          <>
+            <Button
+              href="#how-it-works"
+              size="lg"
+              className="rounded-full bg-[#123c31] px-7 shadow-lg shadow-[#123c31]/15 hover:bg-[#0c3027]"
+            >
+              See how it works
+              <ArrowRight className="size-4" aria-hidden="true" />
+            </Button>
+            <Button
+              href="/contact-us"
+              variant="outline"
+              className="rounded-full border-[#dce6dd] bg-white/90"
+            >
+              Contact our team
+            </Button>
+          </>
+        }
+        media={
+          <div className="relative">
+            <div
+              className="absolute -inset-4 rounded-[2rem] bg-gradient-to-br from-[#dce9df] via-brand-100/80 to-[#c5ddd0] opacity-90"
+              aria-hidden="true"
+            />
+            <div className="relative overflow-hidden rounded-[1.75rem] border border-white/90 bg-white p-2 shadow-elevated">
+              <div className="relative aspect-[4/3] overflow-hidden rounded-[1.35rem]">
+                <Image
+                  src={ABOUT_HUB_HERO}
+                  alt="Patient on a telehealth video visit with a California-licensed physician on a laptop"
+                  fill
+                  className="object-cover object-center"
+                  sizes="(max-width: 1024px) 100vw, 520px"
+                  priority
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-[#123c31]/80 via-[#123c31]/15 to-transparent" />
+                <div className="absolute bottom-0 left-0 right-0 p-6 sm:p-7">
+                  <p className="text-xs font-bold uppercase tracking-[0.16em] text-brand-100">
+                    Telehealth evaluations
+                  </p>
+                  <p className="mt-1 font-display text-xl font-bold text-white sm:text-2xl">
+                    Meet a licensed physician from home — on your schedule.
+                  </p>
+                </div>
+              </div>
+              <div className="mt-3 flex items-center gap-3 rounded-2xl bg-[#f5f8f4] px-4 py-3">
+                <span className="flex size-10 shrink-0 items-center justify-center rounded-xl bg-white text-[#15503f] shadow-sm">
+                  <HeartHandshake className="size-4" aria-hidden="true" />
+                </span>
+                <p className="text-xs leading-relaxed text-neutral-600">
+                  Honest guidance on California requirements — no hidden fees or confusing paperwork.
+                </p>
+              </div>
+            </div>
+          </div>
+        }
       />
 
       <Container className="-mt-6 relative pb-4 md:-mt-8 md:pb-8">
@@ -53,7 +126,7 @@ export default function AboutUsPage() {
         </Card>
       </Container>
 
-      <section className="bg-white py-16 md:py-24">
+      <section id="how-it-works" className="scroll-mt-28 bg-white py-16 md:py-24">
         <Container>
           <HubSectionIntro
             eyebrow="Your path to certification"

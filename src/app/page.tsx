@@ -9,12 +9,14 @@ const PAGE_TITLE = "How to Get a Medical Marijuana Card in Santa Ana, California
 const PAGE_DESCRIPTION =
   "Apply for your medical marijuana card in Santa Ana online from licensed doctors. Same-day telehealth evaluation, plans from $55, money-back guarantee.";
 
-export const metadata = buildHubMetadata({
-  title: PAGE_TITLE,
-  description: PAGE_DESCRIPTION,
-  path: "/",
-  absoluteTitle: true,
-});
+export async function generateMetadata() {
+  return buildHubMetadata({
+    title: PAGE_TITLE,
+    description: PAGE_DESCRIPTION,
+    path: "/",
+    absoluteTitle: true,
+  });
+}
 
 const ProcessSection = dynamic(() =>
   import("@/components/sections/ProcessSection").then((m) => m.ProcessSection)

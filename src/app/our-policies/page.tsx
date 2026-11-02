@@ -38,11 +38,13 @@ const policyIcons: Record<PolicySlug, LucideIcon> = {
   "accessibility-statement": Accessibility,
 };
 
-export const metadata: Metadata = buildHubMetadata({
-  title: "Our Policies",
-  description: policiesHubContent.description,
-  path: POLICY_HUB_PATH,
-});
+export async function generateMetadata(): Promise<Metadata> {
+  return buildHubMetadata({
+    title: "Our Policies",
+    description: policiesHubContent.description,
+    path: POLICY_HUB_PATH,
+  });
+}
 
 export default function OurPoliciesHubPage() {
   const { eyebrow, title, description } = policiesHubContent;

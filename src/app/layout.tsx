@@ -6,11 +6,7 @@ import { Header } from "@/components/layout/Header";
 import { ApplicationPopupProvider } from "@/components/providers/ApplicationPopupProvider";
 import { OrganizationJsonLd } from "@/components/seo/JsonLd";
 import { siteConfig } from "@/data/site";
-import {
-  getAbsoluteOgImageUrl,
-  getDevMetadataBaseUrlFromRequest,
-  getMetadataBaseUrl,
-} from "@/lib/seo";
+import { getAbsoluteOgImageUrl, getRequestMetadataBaseUrl } from "@/lib/seo";
 import "./globals.css";
 
 const gtmId = process.env.NEXT_PUBLIC_GTM_ID ?? siteConfig.gtmId;
@@ -35,10 +31,7 @@ const geistMono = Geist_Mono({
 });
 
 export async function generateMetadata(): Promise<Metadata> {
-  const metadataBase =
-    process.env.NODE_ENV === "development"
-      ? await getDevMetadataBaseUrlFromRequest()
-      : getMetadataBaseUrl();
+  const metadataBase = await getRequestMetadataBaseUrl();
 
   const defaultOgImage = getAbsoluteOgImageUrl(
     "/og-images/home-feature.webp",
