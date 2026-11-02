@@ -5,7 +5,7 @@ const HUB_OG_CARD_PATHS: Record<string, string> = {
   "/our-authors":
     "/og-images/doctor conducting a telehealth consultation.webp",
   "/contact-us":
-    "/og-images/professional talking on mobile phone beside a laptop.webp",
+    "/og-images/contributors collaborating and sharing ideas around a table.webp",
   "/blog":
     "/og-images/laptop with an open notebook and pencil on a desk.webp",
   "/about-us":
