@@ -25,7 +25,7 @@ import {
 } from "@/data/about";
 import { buildHubMetadata } from "@/lib/og/hub-metadata";
 
-const ABOUT_HUB_HERO = "/about/telehealth-consultation-hero.webp";
+const ABOUT_HUB_HERO = "/media/telehealth-consultation-hero.webp";
 
 export async function generateMetadata(): Promise<Metadata> {
   return buildHubMetadata({

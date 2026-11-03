@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import React, { useState, type ChangeEvent, type SubmitEvent } from "react";
+import React, { useState, type ChangeEvent } from "react";
 import { Loader2 } from "lucide-react";
 import { sendGTMEvent } from "@next/third-parties/google";
 import { Button } from "@/components/ui/Button";
@@ -19,6 +19,44 @@ import {
   type LeadFormErrors,
 } from "@/lib/lead-form-validation";
 import { cn } from "@/lib/utils";
+
+type LeadField = "firstName" | "lastName" | "email" | "phone";
+
+type LeadFormState = {
+  firstName: string;
+  lastName: string;
+  email: string;
+  phone: string;
+  termsAccepted: boolean;
+  marketingConsent: boolean;
+  errors: LeadFormErrors;
+  submitting: boolean;
+};
+
+const initialFormState: LeadFormState = {
+  firstName: "",
+  lastName: "",
+  email: "",
+  phone: "",
+  termsAccepted: false,
+  marketingConsent: false,
+  errors: {},
+  submitting: false,
+};
+
+const fieldErrorKey = {
+  firstName: "fname",
+  lastName: "lname",
+  email: "email",
+  phone: "phone",
+} as const satisfies Record<LeadField, keyof LeadFormErrors>;
+
+const fieldValidators = {
+  firstName: validateFname,
+  lastName: validateLname,
+  email: validateLeadEmail,
+  phone: validateLeadPhone,
+} as const;
 
 type LeadCaptureFormProps = {
   className?: string;
@@ -39,74 +77,64 @@ export function LeadCaptureForm({
   price,
   priceSuffix,
 }: LeadCaptureFormProps) {
-  const [firstName, setFirstName] = useState("");
-  const [lastName, setLastName] = useState("");
-  const [email, setEmail] = useState("");
-  const [phone, setPhone] = useState("");
-  const [termsAccepted, setTermsAccepted] = useState(false);
-  const [marketingConsent, setMarketingConsent] = useState(false);
-  const [errors, setErrors] = useState<LeadFormErrors>({});
-  const [submitting, setSubmitting] = useState(false);
+  const [form, setForm] = useState<LeadFormState>(initialFormState);
 
-  function handleFirstNameChange(e: ChangeEvent<HTMLInputElement>) {
-    const value = e.target.value;
-    setFirstName(value);
-    setErrors((prev) => ({
-      ...prev,
-      fname: validateFname(value) ?? undefined,
+  function setField(field: LeadField, value: string) {
+    setForm((current) => ({
+      ...current,
+      [field]: value,
+      errors: {
+        ...current.errors,
+        [fieldErrorKey[field]]: fieldValidators[field](value) ?? undefined,
+      },
     }));
   }
 
-  function handleLastNameChange(e: ChangeEvent<HTMLInputElement>) {
-    const value = e.target.value;
-    setLastName(value);
-    setErrors((prev) => ({
-      ...prev,
-      lname: validateLname(value) ?? undefined,
+  function setConsent(field: "termsAccepted" | "marketingConsent", checked: boolean) {
+    setForm((current) => ({
+      ...current,
+      [field]: checked,
+      errors: checked ? { ...current.errors, [field]: undefined } : current.errors,
     }));
   }
 
-  function handleEmailChange(e: ChangeEvent<HTMLInputElement>) {
-    const value = e.target.value;
-    setEmail(value);
-    setErrors((prev) => ({
-      ...prev,
-      email: validateLeadEmail(value) ?? undefined,
-    }));
-  }
+  function handleChange(e: ChangeEvent<HTMLInputElement>) {
+    const { name, type, value, checked } = e.target;
 
-  function handlePhoneChange(e: ChangeEvent<HTMLInputElement>) {
-    const formatted = formatLeadPhone(e.target.value);
-    setPhone(formatted);
-    setErrors((prev) => ({
-      ...prev,
-      phone: validateLeadPhone(formatted) ?? undefined,
-    }));
+    if (type === "checkbox") {
+      setConsent(name as "termsAccepted" | "marketingConsent", checked);
+      return;
+    }
+
+    const field = name as LeadField;
+    setField(field, field === "phone" ? formatLeadPhone(value) : value);
   }
 
   function handleSubmit(e: React.SubmitEvent<HTMLFormElement>) {
     e.preventDefault();
 
     const nextErrors = validateLeadForm({
-      fname: firstName,
-      lname: lastName,
-      email,
-      phone,
-      termsAccepted,
-      marketingConsent,
+      fname: form.firstName,
+      lname: form.lastName,
+      email: form.email,
+      phone: form.phone,
+      termsAccepted: form.termsAccepted,
+      marketingConsent: form.marketingConsent,
     });
 
-    setErrors(nextErrors);
-    if (hasLeadFormErrors(nextErrors)) return;
+    if (hasLeadFormErrors(nextErrors)) {
+      setForm((current) => ({ ...current, errors: nextErrors }));
+      return;
+    }
 
-    setSubmitting(true);
+    setForm((current) => ({ ...current, errors: {}, submitting: true }));
 
     const utmSource = getHeallyUtmSource();
-    const fullName = `${firstName.trim()} ${lastName.trim()}`.trim();
+    const fullName = `${form.firstName.trim()} ${form.lastName.trim()}`.trim();
     const redirectUrl = buildHeallyRedirectUrl({
       name: fullName,
-      email,
-      phone,
+      email: form.email,
+      phone: form.phone,
       utmSource,
     });
 
@@ -153,9 +181,9 @@ export function LeadCaptureForm({
           placeholder="Ryan"
           required
           autoComplete="given-name"
-          value={firstName}
-          onChange={handleFirstNameChange}
-          error={errors.fname}
+          value={form.firstName}
+          onChange={handleChange}
+          error={form.errors.fname}
         />
         <Input
           id="leadLastName"
@@ -164,9 +192,9 @@ export function LeadCaptureForm({
           placeholder="Mitchell"
           required
           autoComplete="family-name"
-          value={lastName}
-          onChange={handleLastNameChange}
-          error={errors.lname}
+          value={form.lastName}
+          onChange={handleChange}
+          error={form.errors.lname}
         />
       </div>
 
@@ -178,9 +206,9 @@ export function LeadCaptureForm({
         placeholder="ryanmitchell@gmail.com"
         required
         autoComplete="email"
-        value={email}
-        onChange={handleEmailChange}
-        error={errors.email}
+        value={form.email}
+        onChange={handleChange}
+        error={form.errors.email}
       />
 
       <Input
@@ -191,14 +219,14 @@ export function LeadCaptureForm({
         placeholder="555-555-5555"
         required
         autoComplete="tel"
-        value={phone}
-        onChange={handlePhoneChange}
-        error={errors.phone}
+        value={form.phone}
+        onChange={handleChange}
+        error={form.errors.phone}
       />
 
       <Checkbox
         id="leadTerms"
-        name="acceptTerms"
+        name="termsAccepted"
         label={
           <>
             I accept the{" "}
@@ -210,28 +238,18 @@ export function LeadCaptureForm({
             </Link>
           </>
         }
-        checked={termsAccepted}
-        onChange={(e) => {
-          setTermsAccepted(e.target.checked);
-          if (e.target.checked) {
-            setErrors((prev) => ({ ...prev, termsAccepted: undefined }));
-          }
-        }}
-        error={errors.termsAccepted}
+        checked={form.termsAccepted}
+        onChange={handleChange}
+        error={form.errors.termsAccepted}
       />
 
       <Checkbox
         id="leadMarketing"
         name="marketingConsent"
         label="I agree to receive emails with educational content, exclusive offers, partnership discounts, and marketing updates"
-        checked={marketingConsent}
-        onChange={(e) => {
-          setMarketingConsent(e.target.checked);
-          if (e.target.checked) {
-            setErrors((prev) => ({ ...prev, marketingConsent: undefined }));
-          }
-        }}
-        error={errors.marketingConsent}
+        checked={form.marketingConsent}
+        onChange={handleChange}
+        error={form.errors.marketingConsent}
       />
 
       <Button
@@ -239,9 +257,9 @@ export function LeadCaptureForm({
         size="lg"
         fullWidth
         className="mt-2 bg-brand-800 hover:bg-brand-900 shadow-lg shadow-brand-800/20"
-        disabled={submitting}
+        disabled={form.submitting}
       >
-        {submitting ? (
+        {form.submitting ? (
           <>
             <Loader2 className="size-4 animate-spin" />
             Processing…

@@ -1,5 +1,4 @@
 import type { MetadataRoute } from "next";
-import { blogPosts } from "@/data/blog";
 import { contributors } from "@/data/contributors";
 import { policyPages } from "@/data/policies";
 import { doctors } from "@/data/doctors";
@@ -30,7 +29,7 @@ function getRequestUrl(request: Request, getHeader: HeaderGetter): URL {
 
   if (!host) {
     if (process.env.NODE_ENV === "development") {
-      return new URL(request.url, "http://localhost:3000");
+      return new URL(request.url, "http://localhost:3001");
     }
     return new URL(request.url, siteConfig.url);
   }
@@ -85,12 +84,6 @@ export function getSitemapEntries(baseUrl: string): MetadataRoute.Sitemap {
       lastModified,
       changeFrequency: "monthly" as const,
       priority: 0.5,
-    })),
-    ...blogPosts.map((post) => ({
-      url: `${origin}/blog/${post.slug}`,
-      lastModified,
-      changeFrequency: "monthly" as const,
-      priority: 0.7,
     })),
   ];
 }

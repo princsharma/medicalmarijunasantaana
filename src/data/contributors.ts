@@ -63,7 +63,7 @@ export const contributors: Contributor[] = [
   {
     slug: "octavia-wyche",
     name: "Octavia Wyche",
-    photo: "/authors/octavia-wyche.webp",
+    photo: "/media/octavia-wyche.webp",
     credentialLine: "Paralegal Certified • Healthcare & Regulatory Content",
     role: "Medical Writer",
     tagline: "Clear, legally aligned writing on healthcare regulation and medical marijuana.",
@@ -131,7 +131,7 @@ export const contributors: Contributor[] = [
   {
     slug: "robert-d-saint-laurent",
     name: "Robert D. Saint Laurent",
-    photo: "/authors/robert-d-saint-laurent.webp",
+    photo: "/media/robert-d-saint-laurent.webp",
     credential: "M.Ed.",
     credentialLine: "Health & Medical Content Writer • Editorial Specialist",
     role: "Medical Writer",

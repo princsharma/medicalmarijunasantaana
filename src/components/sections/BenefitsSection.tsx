@@ -107,7 +107,7 @@ export function BenefitsSection() {
                   )}
                 >
                   <Image
-                    src="/benefits/dispensary.webp"
+                    src="/media/dispensary.webp"
                     alt="Certified medical dispensary products"
                     fill
                     className="object-cover transition-transform duration-700 group-hover:scale-105"

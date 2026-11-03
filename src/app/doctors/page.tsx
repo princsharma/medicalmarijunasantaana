@@ -32,7 +32,7 @@ export async function generateMetadata(): Promise<Metadata> {
 }
 
 const TELEHEALTH_HERO =
-  "/hero/telehealth consultation with a doctor through a laptop video call.webp";
+  "/media/telehealth consultation with a doctor through a laptop video call.webp";
 
 const reasons = [
   {
@@ -143,7 +143,7 @@ export default function DoctorsPage() {
             <div className="relative overflow-hidden rounded-[1.75rem] border border-white/90 bg-white p-2 shadow-elevated">
               <div className="relative aspect-[4/3] overflow-hidden rounded-[1.35rem]">
                 <Image
-                  src={"/doctors/doctor conducting.webp"}
+                  src={"/media/doctor conducting.webp"}
                   alt="Physician conducting a secure telehealth consultation"
                   fill
                   className="object-cover"

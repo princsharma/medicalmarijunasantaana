@@ -37,6 +37,7 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
     title: post.seoTitle ?? post.title,
     description: post.seoDescription ?? post.excerpt,
     path,
+    noIndex: true,
     openGraphType: "article",
     publishedTime: post.date,
     authors: [post.author],

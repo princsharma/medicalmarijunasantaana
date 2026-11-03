@@ -23,7 +23,7 @@ export const doctors: Doctor[] = [
     bio: "A licensed nuclear medicine specialist who provides thorough, patient-focused medical marijuana evaluations while following applicable California regulations.",
     seoDescription:
       "Meet Dr. Rick Rieser, MD for a medical marijuana evaluation in Santa Ana, CA. Book a secure telehealth visit with a California-licensed physician.",
-    photo: "/doctors/dr-rick-rieser.webp",
+    photo: "/media/dr-rick-rieser.webp",
   },
   {
     slug: "johnathan-miller",
@@ -35,7 +35,7 @@ export const doctors: Doctor[] = [
     bio: "A California-licensed physician who takes a comprehensive, patient-centered approach to state-compliant medical marijuana evaluations.",
     seoDescription:
       "Meet Dr. Johnathan Miller, MD for a medical marijuana evaluation in Santa Ana, CA. Book a secure telehealth visit with a California-licensed physician.",
-    photo: "/doctors/dr-johnathan-c-miller.webp",
+    photo: "/media/dr-johnathan-c-miller.webp",
   },
 ];
 

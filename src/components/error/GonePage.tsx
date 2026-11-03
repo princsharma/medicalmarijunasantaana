@@ -79,7 +79,7 @@ function LinkLogo() {
   return (
     <Link href="/" className="mt-8 inline-flex flex-col items-center" aria-label={`${siteConfig.name} home`}>
       <Image
-        src="/brand-logo.webp"
+        src="/media/brand-logo.webp"
         alt={siteConfig.name}
         width={1917}
         height={368}

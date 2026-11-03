@@ -34,7 +34,7 @@ export async function generateMetadata(): Promise<Metadata> {
   const metadataBase = await getRequestMetadataBaseUrl();
 
   const defaultOgImage = getAbsoluteOgImageUrl(
-    "/og-images/home-feature.webp",
+    "/media/home-feature.webp",
     metadataBase,
   );
 
@@ -49,7 +49,7 @@ export async function generateMetadata(): Promise<Metadata> {
     description: siteConfig.description,
 
     icons: {
-      icon: "/favicon.ico",
+      icon: "/media/favicon.ico",
     },
 
     openGraph: {

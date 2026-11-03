@@ -69,15 +69,15 @@ export type BlogPost = {
 export const blogPosts: BlogPost[] = [
   {
     slug: "is-marijuana-legal-in-california",
-    title: "Is Marijuana Legal in California in 2026?",
+    title: "Is Marijuana Legal in Santa Ana in 2026?",
     subtitle: "All You Need to Know",
     excerpt:
-      "Is marijuana legal in California in 2026? See medical and recreational cannabis rules, MMIC benefits, possession limits, and restrictions.",
+      "Is marijuana legal in Santa Ana in 2026? See medical and recreational cannabis rules, MMIC benefits, possession limits, and restrictions.",
     heroDescription:
       "Cannabis is legal in California in 2026 for both medical and recreational use. Learn key rules, MMIC benefits, possession limits, and restrictions you must know.",
-    seoTitle: "Is Marijuana Legal in California in 2026? Laws Explained",
+    seoTitle: "Is Marijuana Legal in Santa Ana in 2026?",
     seoDescription:
-      "Is marijuana legal in California in 2026? See medical and recreational cannabis rules, MMIC benefits, possession limits, and restrictions.",
+      "Is marijuana legal in Santa Ana in 2026? See medical and recreational cannabis rules, MMIC benefits, possession limits, and restrictions.",
     breadcrumbLabel: "Marijuana Legality",
     category: "MMIC & Recreational",
     date: "2026-09-18",
@@ -85,7 +85,7 @@ export const blogPosts: BlogPost[] = [
     readTime: "12 min read",
     author: "Octavia Wyche",
     specialist: "Paralegal Certified",
-    authorImage: "/authors/octavia-wyche.webp",
+    authorImage: "/media/octavia-wyche.webp",
     authorRole: "Medical Writer",
     authorBio:
       "Octavia Wyche is a technical writer and documentation specialist with a strong background in healthcare and regulated government environments.",
@@ -93,9 +93,9 @@ export const blogPosts: BlogPost[] = [
     reviewer: "Rick Rieser",
     reviewerRole: "M.D., Licensed California Physician",
     reviewerSpecialist: "Medical Doctor (MD)",
-    authorFeatureImage: "/hero/medical-marijuana-santa-ana.webp",
-    reviewerImage: "/doctors/dr-rick-rieser.webp",
-    image: "/og-images/laptop with an open notebook and pencil on a desk.webp",
+    authorFeatureImage: "/media/medical-marijuana-santa-ana.webp",
+    reviewerImage: "/media/dr-rick-rieser.webp",
+    image: "/media/laptop with an open notebook and pencil on a desk.webp",
     featured: true,
     content: [
       {

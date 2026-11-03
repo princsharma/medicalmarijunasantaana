@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import { siteConfig } from "@/data/site";
 import { getCanonicalOrigin, getCanonicalUrl } from "@/lib/url-normalization";
 
-/** Encode spaces and special chars in static `public/` paths (e.g. og-images). */
+/** Encode spaces and special chars in static `public/` paths (e.g. media files). */
 function encodePublicAssetPath(imagePath: string) {
   const normalized = imagePath.startsWith("/") ? imagePath : `/${imagePath}`;
   return normalized
@@ -18,7 +18,7 @@ export function getMetadataBaseUrl() {
     if (devSite) {
       return new URL(devSite.endsWith("/") ? devSite : `${devSite}/`);
     }
-    const port = process.env.PORT?.trim() || "3000";
+    const port = process.env.PORT?.trim() || "3001";
     return new URL(`http://localhost:${port}/`);
   }
 

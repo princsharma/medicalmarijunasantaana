@@ -21,7 +21,7 @@ import { contributors, contributorsHubContent } from "@/data/contributors";
 import { doctors } from "@/data/doctors";
 import { buildHubMetadata } from "@/lib/og/hub-metadata";
 
-const AUTHORS_HUB_HERO = "/authors/authors hub.webp";
+const AUTHORS_HUB_HERO = "/media/authors hub.webp";
 
 export async function generateMetadata(): Promise<Metadata> {
   return buildHubMetadata({

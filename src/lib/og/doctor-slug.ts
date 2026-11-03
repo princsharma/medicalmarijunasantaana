@@ -8,7 +8,7 @@ export async function getDoctorSlugOgAlt(slug: string) {
   return `${doctorDisplayName(doctor)} — Medical Marijuana Card Santa Ana`;
 }
 
-/** Same file as the doctor profile hero (`public/doctors/...`). */
+/** Same file as the doctor profile hero (`public/media/...`). */
 export function getDoctorSlugOgImagePath(doctor: Doctor) {
   return doctor.photo ?? DEFAULT_OG_CARD_PATH;
 }

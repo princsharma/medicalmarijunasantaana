@@ -101,7 +101,7 @@ export function Footer() {
                 aria-label={`${siteConfig.name} home`}
               >
                 <Image
-                  src="/brand-logo-light.webp"
+                  src="/media/brand-logo-light.webp"
                   alt="Medical Marijuana Santa Ana"
                   width={1917}
                   height={368}
