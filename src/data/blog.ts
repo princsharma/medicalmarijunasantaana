@@ -95,7 +95,7 @@ export const blogPosts: BlogPost[] = [
     reviewerSpecialist: "Medical Doctor (MD)",
     authorFeatureImage: "/media/medical-marijuana-santa-ana.webp",
     reviewerImage: "/media/dr-rick-rieser.webp",
-    image: "/media/laptop with an open notebook and pencil on a desk.webp",
+    image: "/media/blog Hub.webp",
     featured: true,
     content: [
       {
