@@ -12,7 +12,7 @@ export function HeroDoctorVisual() {
         */}
         <div className="relative aspect-[16/10] w-full sm:aspect-[3/2] lg:aspect-[4/3] xl:min-h-[28rem]">
           <Image
-            src="/media/telehealth consultation with a doctor through a laptop video call.webp"
+            src="/media/telehealth consultation.webp"
             alt="Patient having a secure telehealth video visit with a California-licensed doctor on a laptop"
             fill
             priority

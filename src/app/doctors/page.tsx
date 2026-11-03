@@ -143,7 +143,7 @@ export default function DoctorsPage() {
             <div className="relative overflow-hidden rounded-[1.75rem] border border-white/90 bg-white p-2 shadow-elevated">
               <div className="relative aspect-[4/3] overflow-hidden rounded-[1.35rem]">
                 <Image
-                  src={"/media/doctor conducting.webp"}
+                  src={"/media/professional talking.webp"}
                   alt="Physician conducting a secure telehealth consultation"
                   fill
                   className="object-cover"
