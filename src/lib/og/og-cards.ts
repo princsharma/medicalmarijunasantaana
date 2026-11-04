@@ -11,7 +11,7 @@ const HUB_OG_CARD_PATHS: Record<string, string> = {
   "/about-us":
     "/media/doctor conducting a telehealth consultation.webp",
   "/doctors":
-    "/media/professional talking on mobile phone beside a laptop.webp",
+    "/media/doctor conducting.webp",
 };
 
 function normalizePagePath(pagePath: string) {
